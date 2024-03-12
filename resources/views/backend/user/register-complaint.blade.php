@@ -61,13 +61,13 @@
                     <!-- State field -->
                     <div class="form-group">
                         <label for="state">{{ __('State') }}</label>
-                        <select name="states" required="required" class="form-control">
+                        <select name="state" required="required" class="form-control">
                             <option value="">Select State</option>
                             @foreach($states as $states)
                                 <option value="{{ $states->state }}">{{ $states->state }}</option>
                             @endforeach
                         </select>
-                        @error('states')
+                        @error('state')
                          <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

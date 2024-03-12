@@ -67,18 +67,18 @@ class ComplaintController extends Controller
 
     public function submitComplaint(Request $request)
     {
-        dd($request->all());
+       
         // Validate the incoming request data and assign it to $validatedData
         $validatedData = $request->validate([
             'category' => 'required',
             'subcategory' => 'required',
             'complaintype' => 'required',
-            'states' => 'required',
+            'state' => 'required',
             'noc' => 'required',
             'complaint_details' => 'required',
             'complaint_file' => 'required', // Example validation for file upload
         ]);
-  dd('hello');
+  
         // Handle file upload
         if ($request->hasFile('complaint_file')) {
             $complaintFile = $request->file('complaint_file');
@@ -104,8 +104,7 @@ class ComplaintController extends Controller
 
         // Other operations like fetching complaint number can be added here
 
-        return redirect('user.user_dashboard')->with('success', 'Registration successful. You can now login.');
-
+        return redirect::route('user.user_dashboard')->with('success', 'Registration successful. You can now login.');
     }
 
 
