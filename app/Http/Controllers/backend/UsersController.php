@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+
 use Carbon\Carbon;
 use App\Models\Api;
 use App\Models\Bank;
@@ -406,10 +407,7 @@ class UsersController extends Controller
         $user->states = $request->input('states');
         $user->country = $request->input('country');
         $user->pincode = $request->input('pincode');
-      
-        // Save changes to the database
         $user->save();
-    
         return redirect()->route('admin.dashboard')->with('success', 'Profile updated successfully');
     }
     
@@ -418,10 +416,9 @@ class UsersController extends Controller
 
     public function destroy(string $id)
     { 
-    User::destroy($id);
-     return redirect()->route('admin.userList')->with(compact('data'));
-  
-   }
+      User::destroy($id);
+      return redirect()->route('admin.userList');
+    }
 
 
  

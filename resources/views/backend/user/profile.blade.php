@@ -42,7 +42,7 @@
                             <select name="state" required="required" class="form-control">
                                 <option value="{{ old('state', $user->state) }}">{{ old('State', $user->State) }}</option>
                                 @foreach($states as $state)
-                                  <option value="{{ $state->stateName }}">{{ $state->stateName }}</option>
+                                  <option value="{{ $state->state }}">{{ $state->state }}</option>
                                 @endforeach
                             </select>
                         </div>
