@@ -39,4 +39,9 @@ class Complaint extends Model
     {
         return $this->hasMany(State::class, 'id');
     }
+
+    public function Complaint()
+    {
+        return $this->belongsTo(Complaint::class,'id');
+    }
 }

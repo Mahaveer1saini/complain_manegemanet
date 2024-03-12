@@ -421,6 +421,11 @@ class UsersController extends Controller
     }
 
 
+
+    public function update_complain()
+    {
+        return view('complaint.index');
+    }
  
 
   
