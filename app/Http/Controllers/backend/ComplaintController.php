@@ -76,7 +76,12 @@ class ComplaintController extends Controller
             'state' => 'required',
             'noc' => 'required',
             'complaint_details' => 'required',
-            'complaint_file' => 'required', // Example validation for file upload
+            'complaint_file' => 'required',
+            'district'=>'required',
+            'tehsil'=>'required',
+            'village'=>'required',
+            'word'=>'required',
+             // Example validation for file upload
         ]);
   
         // Handle file upload
@@ -100,11 +105,15 @@ class ComplaintController extends Controller
         $complaint->noc = $validatedData['noc'];
         $complaint->complaint_details = $validatedData['complaint_details'];
         $complaint->complaint_file = $compfilenew;
+        $complaint->district = $validatedData['district'];
+        $complaint->tehsil = $validatedData['tehsil'];
+        $complaint->village = $validatedData['village'];
+        $complaint->word = $validatedData['word'];
         $complaint->save();
 
         // Other operations like fetching complaint number can be added here
-
-        return redirect::route('user.user_dashboard')->with('success', 'Registration successful. You can now login.');
+        return redirect()->route('user.user_dashboard')->with('success', 'Profile updated successfully');
+    
     }
 
 
@@ -113,8 +122,6 @@ class ComplaintController extends Controller
         $user = Auth::user();
         $complaints = Complaint::all(); // Assuming you have a Complaint model
         return view('backend.user.complain-history', compact('complaints'),['user' => $user]);
-
-
     }
 
 

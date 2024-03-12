@@ -95,8 +95,39 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                     
+                    <div class="form-group">
+                        <label for="district">{{ __('district') }}</label>
+                        <input type="text" name="district" required="required" value="" class="form-control">
+                        @error('district')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-                    <!-- Submit button -->
+                    <div class="form-group">
+                        <label for="tehsil">{{ __('tehsil') }}</label>
+                        <input type="text" name="tehsil" required="required" value="" class="form-control">
+                        @error('tehsil')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="village">{{ __('village') }}</label>
+                        <input type="text" name="village" required="required" value="" class="form-control">
+                        @error('village')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="word">{{ __('word') }}</label>
+                        <input type="num" name="word" required="required" value="" class="form-control">
+                        @error('word')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                  
                     <button type="submit" class="btn btn-primary" name="submit">{{ __('Submit') }}</button>
                 </form>
             </div>

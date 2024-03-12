@@ -20,6 +20,10 @@ class Complaint extends Model
         'noc',
         'complaint_details',
         'complaint_file',
+        'village',
+        'tehsil',
+        'village',
+        'word',
     ];
 
     // Define any relationships if needed

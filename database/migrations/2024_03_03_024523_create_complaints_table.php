@@ -21,7 +21,10 @@ return new class extends Migration
             $table->string('state');
             $table->string('noc');
             $table->text('complaint_details');
-            $table->string('complaint_file')->nullable();
+            $table->string('district')->nullable();
+            $table->string('tehsil')->nullable();
+            $table->string('village')->nullable();
+            $table->string('word')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
