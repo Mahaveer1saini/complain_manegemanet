@@ -1,29 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
-
 use Carbon\Carbon;
-use App\Models\Api;
-use App\Models\Bank;
 use App\Models\City;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\State;
-use VedicRishiClient;
-use App\Models\Wallet;
-use App\Models\Country;
-use App\Models\Package;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\Astrologer;
-use App\Models\CallHistory;
+use App\Models\Complaint;
+use App\Models\complaintremark;
 use Illuminate\Support\Str;
-use App\Models\ModuleAccess;
-use App\Models\UserActivity;
 use Illuminate\Http\Request;
-use App\Models\ProductCategory;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -34,7 +21,6 @@ use App\Models\AstrologerInformation;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Password;
 // use Illuminate\Auth\Events\PasswordReset;
-use App\Models\PasswordReset;
 use App\Console\Commands\MyCommand;
 use URL;
 
@@ -358,62 +344,6 @@ class UsersController extends Controller
         
     }
 
-
-    public function custmor_Update(string $id)
-    {  
-       
-        $data = User::find($id);
-        $states = State::all();
-        return view('Admin.user.useredit', compact('states','data'))->with('data', $data);
-
-    }
-
-
-    public function UserUpdate(Request $request, string $id)
-    {
-        $user = auth()->user();
-       // Handle image upload if provided
-        if ($request->hasFile('image')) {
-            $complaintFile = $request->file('image');
-    
-            // Validate the uploaded file
-            if ($complaintFile->isValid()) {
-                // Generate a new unique filename to prevent overwriting
-                $compfilenew = md5($complaintFile->getClientOriginalName()) . '.' . $complaintFile->getClientOriginalExtension();
-    
-                // Move the file to the desired location
-                if ($complaintFile->move(public_path('user'), $compfilenew)) {
-                    // Update user's image path in the database
-                    $user->image = $compfilenew;
-                } else {
-                    // Handle the case where file could not be moved, perhaps by displaying an error message to the user
-                    return back()->withErrors(['file' => 'Error occurred while uploading the file']);
-                }
-            }else{
-                // Handle the case where the uploaded file is not valid, perhaps by displaying an error message to the user
-                return back()->withErrors(['file' => 'Invalid file']);
-            }
-        } else {
-            // Handle the case where no file is uploaded, perhaps by displaying an error message to the user
-            return back()->withErrors(['file' => 'No file uploaded']);
-        }
-    
-        // Update user data
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->username = $request->input('username');
-        $user->contact = $request->input('contact');
-        $user->address = $request->input('address');
-        $user->states = $request->input('states');
-        $user->country = $request->input('country');
-        $user->pincode = $request->input('pincode');
-        $user->save();
-        return redirect()->route('admin.dashboard')->with('success', 'Profile updated successfully');
-    }
-    
-    
-
-
     public function destroy(string $id)
     { 
       User::destroy($id);
@@ -421,12 +351,36 @@ class UsersController extends Controller
     }
 
 
-
-    public function update_complain()
+    public function update_complain(string $id)
     {
-        return view('complaint.index');
+        $data = Complaint::find($id);
+        return view('Admin.user.complaint', compact('data'));
+
     }
- 
+    
+    
+    
+
+   
+
+    public function Com_update(Request $request,$complaint_id)
+    {
+        $request->validate([
+            'status' => 'required',
+            'remark' => 'required',
+        ]);
+
+        $complaint = Complaint::findOrFail($complaint_id);
+        $complaint->status = $request->input('status');
+        $complaint->save();
+
+        $complaint->remarks()->create([
+            'status' => $request->input('status'),
+            'remark' => $request->input('remark'),
+        ]);
+
+        return redirect()->back()->with('success', 'Complaint details updated successfully');
+    }
 
   
 

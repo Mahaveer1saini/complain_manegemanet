@@ -55,7 +55,6 @@
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">Delete</button>
                                                         </form>
-                                                        <a href="{{ route('admin.custmor_Update', $row->id) }}" class="btn btn-primary">Update</a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

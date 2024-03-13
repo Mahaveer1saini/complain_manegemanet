@@ -78,15 +78,15 @@ Route::get('/', function () {
         Route::post('/admin-password', [UsersController::class, 'AdminUpdatePassword'])->name('adminPassword');
         //user crud
         Route::get('/userList', [UsersController::class, 'userList'])->name('userList');
-        Route::get('/users/{id}', [UsersController::class, 'custmor_Update'])->name('custmor_Update');
-        Route::post('/update/{id}', [UsersController::class, 'UserUpdate'])->name('usersUpdate');
         Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
     
 
 
-        Route::get('/between-date-complaintreport', [UsersController::class, 'update_complain']);
-        Route::post('/between-date-complaintreport', [UsersController::class, 'generateReport'])->name('generateReport');
+       // routes/web.php
+        Route::get('/complaint/{id}',[UsersController::class, 'update_complain'])->name('update_complain');
+        Route::post('/complaint/{id}',[UsersController::class, 'Com_update'])->name('Com_update');
 
+       
     });
    
 

@@ -44,6 +44,16 @@
                         <a href="{{route('admin.userList')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Manage Users</span></a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('admin.update_complain', ['id' => auth()->id()]) }}" class="nav-link">
+                            <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                            <span class="pcoded-mtext">update_complain</span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
                     <li class="nav-item pcoded-menu-caption">
                         <label>User Complaints</label>
                     </li>
@@ -80,3 +90,7 @@
         </div>
     </nav>
 </aside>
+
+
+
+
