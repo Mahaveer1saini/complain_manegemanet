@@ -24,6 +24,7 @@ class Complaint extends Model
         'tehsil',
         'village',
         'word',
+        'status',
     ];
 
     // Define any relationships if needed
@@ -42,6 +43,11 @@ class Complaint extends Model
 
     public function Complaint()
     {
-        return $this->belongsTo(Complaint::class,'id');
+        return $this->belongsTo(Complaint::class);
+    }
+
+    public function complaintremark()
+    {
+        return $this->hasMany(complaintremark::class);
     }
 }

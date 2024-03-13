@@ -349,40 +349,64 @@ class UsersController extends Controller
       User::destroy($id);
       return redirect()->route('admin.userList');
     }
-
-
-    public function update_complain(string $id)
+    
+    public function all_Complaint(Request $request)
     {
-        $data = Complaint::find($id);
-        return view('Admin.user.complaint', compact('data'));
-
+        
+        $allComplaint = Complaint::all();
+        return view('Admin.user.allcomplain', compact('allComplaint'));
     }
-    
-    
-    
 
-   
-
-    public function Com_update(Request $request,$complaint_id)
+    public function Complaint_detail($id)
     {
-        $request->validate([
-            'status' => 'required',
-            'remark' => 'required',
+       
+        $complaint = Complaint::find($id);// Assuming you have a model named "Complaint"
+        return view('Admin.user.complaint-details', compact('complaint'));
+    }
+
+
+    public function Complaint_Edit($id)
+    {
+        
+        $complaint = Complaint::where('id', $id)->firstOrFail();
+        return view('Admin.user.editcomplaint', compact('complaint'));
+       
+       
+        
+    }
+    public function Complaint_Update(Request $request, $id)
+    { 
+       
+        $complaint_id = $id;
+        $status = $request->input('status');
+        $remark = $request->input('remark');
+        $user_id = auth()->id(); // Get the current user's ID
+        
+        // Save remark
+        ComplaintRemark::create([
+            'complaint_id' => $complaint_id,
+            'user_id' => $user_id, // Associate the current user's ID with the complaint remark
+            'status' => $status,
+            'remark' => $remark
         ]);
-
-        $complaint = Complaint::findOrFail($complaint_id);
-        $complaint->status = $request->input('status');
-        $complaint->save();
-
-        $complaint->remarks()->create([
-            'status' => $request->input('status'),
-            'remark' => $request->input('remark'),
-        ]);
-
+    
+        // Update complaint status
+        Complaint::where('id', $complaint_id)
+            ->update(['status' => $status]);
+    
         return redirect()->back()->with('success', 'Complaint details updated successfully');
     }
-
+    
+    
+        
   
+    
 
-   
+
+    // Method to close the window
+    public function closeWindow()
+    {
+        // You can put any logic you need here
+        return redirect()->back();
+    }
 }

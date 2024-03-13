@@ -39,13 +39,14 @@ Route::get('/', function () {
     Route::post('/getsubcat', [ComplaintController::class, 'getSubcategories'])->name('getsubcat');
     Route::get('/complaint-history', [ComplaintController::class, 'complaint_history'])->name('complaint-history');
     Route::get('/complaint-details/{cid}', [ComplaintController::class, 'complaint_show'])->name('complaint.details');
+    //categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-    
+    //states
     Route::get('/states', [StateController::class, 'index'])->name('states.index');
     Route::get('/states/create', [StateController::class, 'create'])->name('states.create');
     Route::post('/states', [StateController::class, 'store'])->name('states.store');
@@ -53,7 +54,7 @@ Route::get('/', function () {
     Route::put('/states/{state}', [StateController::class, 'update'])->name('states.update');
     Route::delete('/states/{state}', [StateController::class, 'destroy'])->name('states.destroy');
     
-    
+    //subcategories
     Route::get('/subcategories', [subcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/subcategories/create', [subcategoryController::class, 'create'])->name('subcategories.create');
     Route::post('/subcategories', [subcategoryController::class, 'store'])->name('subcategories.store');
@@ -62,7 +63,9 @@ Route::get('/', function () {
     Route::put('/subcategories/{subcategory}', [subcategoryController::class, 'update'])->name('subcategories.update');
     Route::delete('/subcategories/{subcategory}', [subcategoryController::class, 'destroy'])->name('subcategories.destroy');
     Route::post('/submit-complaints', [ComplaintController::class, 'getSubcategories'])->name('get-subcategories');
-    });
+    
+
+});
     // routes/web.php
     Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
         Route::get('register', [UsersController::class, 'register'])->name('register');
@@ -79,14 +82,13 @@ Route::get('/', function () {
         //user crud
         Route::get('/userList', [UsersController::class, 'userList'])->name('userList');
         Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
+        //
+        Route::get('/all-complaint', [UsersController::class, 'all_Complaint'])->name('all-complaint');
+        Route::get('/Complaint_detail/{id}', [UsersController::class, 'Complaint_detail'])->name('Complaint_detail');
     
+        Route::get('/complaint/{id}', [UsersController::class, 'Complaint_Edit'])->name('Complaint_Edit');
 
-
-       // routes/web.php
-        Route::get('/complaint/{id}',[UsersController::class, 'update_complain'])->name('update_complain');
-        Route::post('/complaint/{id}',[UsersController::class, 'Com_update'])->name('Com_update');
-
-       
+        Route::post('Complaint_Update/{id}', [UsersController::class, 'Complaint_Update'])->name('Complaint_Update');
     });
    
 

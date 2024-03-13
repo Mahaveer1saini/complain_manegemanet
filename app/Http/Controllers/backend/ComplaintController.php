@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\backend;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Complaint;
@@ -24,8 +23,6 @@ class ComplaintController extends Controller
         $user = Auth::user();
         $categories = categories::all();
         $states = State::all();
-
-        // Fetch subcategories for each category
         $subcategories = [];
         foreach ($categories as $category) {
             $subcategories[$category->id] = subcategories::where('category_id', $category->id)->get();
@@ -141,6 +138,7 @@ class ComplaintController extends Controller
         }
 
 
+    
 
 
 }

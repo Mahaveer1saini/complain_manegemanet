@@ -1,3 +1,13 @@
+<style>
+    /* Basic CSS for Dropdown Menu */
+    .pcoded-submenu {
+        display: none;
+    }
+
+    .pcoded-hasmenu:hover .pcoded-submenu {
+        display: block;
+    }
+</style>
 <div class="loader-bg">
     <div class="loader-track">
         <div class="loader-fill"></div>
@@ -44,29 +54,25 @@
                         <a href="{{route('admin.userList')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-user"></i></span><span class="pcoded-mtext">Manage Users</span></a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.update_complain', ['id' => auth()->id()]) }}" class="nav-link">
-                            <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-                            <span class="pcoded-mtext">update_complain</span>
-                        </a>
-                    </li>
+                   
+                   <ul class="pcoded-menu">
+                        <li class="nav-item pcoded-menu-caption">
+                            <label>User Complaints</label>
+                        </li>
                     
-                    
-                    
-                    
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>User Complaints</label>
-                    </li>
-
-                    <li class="nav-item pcoded-hasmenu">
-                        <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Manage Complaint</span></a>
-                        <ul class="pcoded-submenu">
-                            <li><a href="">All Complaints</a></li>
-                            <li><a href="">Not Process Yet</a></li>
-                            <li><a href="">In Process</a></li>
-                            <li><a href="">Closed Complaints</a></li>
-                        </ul>
-                    </li>
+                        <li class="nav-item pcoded-hasmenu">
+                            <a href="#!" class="nav-link" onclick="toggleSubMenu(event)">
+                                <span class="pcoded-micon"><i class="feather icon-box"></i></span>
+                                <span class="pcoded-mtext">Manage Complaint</span>
+                            </a>
+                            <ul class="pcoded-submenu">
+                                <li><a href="{{route('admin.all-complaint')}}">All Complaints</a></li>
+                                <li><a href="">Not Process Yet</a></li>
+                                <li><a href="">In Process</a></li>
+                                <li><a href="">Closed Complaints</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                     <li class="nav-item pcoded-menu-caption">
                         <label>Reports</label>
                     </li>
@@ -91,6 +97,17 @@
     </nav>
 </aside>
 
+<script>
+    function toggleSubMenu(event) {
+        event.preventDefault(); // Prevent the default link behavior
 
+        const submenu = event.target.parentElement.querySelector('.pcoded-submenu');
+        if (submenu.style.display === 'block') {
+            submenu.style.display = 'none';
+        } else {
+            submenu.style.display = 'block';
+        }
+    }
+</script>
 
 

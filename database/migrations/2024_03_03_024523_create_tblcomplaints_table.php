@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('tehsil')->nullable();
             $table->string('village')->nullable();
             $table->string('word')->nullable();
+            $table->integer('status')->default(0)->index('status');
             $table->rememberToken();
             $table->timestamps();
         });

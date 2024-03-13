@@ -63,4 +63,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function complaintremark()
+    {
+        return $this->belongsTo(complaintremark::class);
+    }
 }
