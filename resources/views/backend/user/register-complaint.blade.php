@@ -12,11 +12,6 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('user.complaint.submit') }}" enctype="multipart/form-data">
                     @csrf
-
-                    <!-- Form fields -->
-                    <!-- Note: $categories, $subcategories, and $state should be passed from the controller -->
-                    
-                    <!-- Category field -->
                     <div class="form-group">
                         <label for="category">{{ __('Category Name') }}</label>
                         <select name="category" id="category" class="form-control" required="">

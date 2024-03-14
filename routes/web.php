@@ -8,16 +8,7 @@ use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ComplaintController;
 use App\Http\Controllers\backend\subcategoryController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,7 +29,11 @@ Route::get('/', function () {
     Route::post('/submit-complaint', [ComplaintController::class, 'submitComplaint'])->name('complaint.submit');
     Route::post('/getsubcat', [ComplaintController::class, 'getSubcategories'])->name('getsubcat');
     Route::get('/complaint-history', [ComplaintController::class, 'complaint_history'])->name('complaint-history');
-    Route::get('/complaint-details/{cid}', [ComplaintController::class, 'complaint_show'])->name('complaint.details');
+    Route::get('/complaint-details/{id}', [ComplaintController::class, 'complaint_show'])->name('complaint.details');
+    Route::get('/complaint_update/{id}', [ComplaintController::class, 'complaint_update'])->name('complaint_update');
+    Route::post('/complaint_edit/{id}', [ComplaintController::class, 'complaint_edit'])->name('complaint_edit');
+    Route::get('/complaint_destroy/{id}', [ComplaintController::class, 'complaint_destroy'])->name('complaint_destroy');
+    
     //categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');

@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\State;
 use App\Models\Complaint;
+use App\Models\categories;
+use App\Models\subcategories;
 use App\Models\complaintremark;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -85,38 +87,54 @@ class UsersController extends Controller
     public function dashboard(User $user)
     {     
         $loggedUser = Auth::user();
-        $all_user = 0; // Define and initialize $all_user variable
+        // Define and initialize $all_user variable
     
+        // Check if the user is not logged in, redirect to login page
         if (Auth::guest()) {
             return redirect()->route('admin.login');   
         }
-      
+    
         if ($loggedUser->role_id == 2) {
+            // Count all users with role_id 6 (assuming this is the State role)
             $all_user = User::where('role_id', 6)->count();
+            $all_state = State::count();
+            $all_Complaint = Complaint::count();
+            $closedComplaintCount = Complaint::where('status', 'closed')->count();
+            $paddingComplaintCount = Complaint::where('status', 'padding')->count();
+            $processComplaintCount = Complaint::where('status', 'in process')->count();
+            $all_categories = categories::count();
+            $all_subcategories = subcategories::count();  // Count all states
             $data = (object) [];
-            if ($loggedUser->package_valid_date <= Config::get('current_date') && $loggedUser->role_id == 2) {
-              return view('Admin.dasboard', compact('data','all_user'))
-              ->with('error', 'Your plan has expired. Please recharge immediately');
-            } elseif (($parent->package_valid_date <= Config::get('current_date')) && $loggedUser->role_id > 2) {
-                return view('backend.users.dashboard', compact('data'))->with('error', 'Your admin plan has expired. Contact an Authorized Person');
+            if ($loggedUser->package_valid_date <= Config::get('current_date')) {
+                if ($loggedUser->role_id == 2) {
+                    return view('Admin.dasboard', compact('data', 'all_user', 'all_state','all_Complaint','all_categories','all_subcategories','closedComplaintCount','paddingComplaintCount','processComplaintCount'))->with('error', 'Your plan has expired. Please recharge immediately');
+                } else {
+                    return view('backend.users.dashboard', compact('data'))->with('error', 'Your admin plan has expired. Contact an Authorized Person');
+                }
             } else {
                 return view('backend.users.dashboard', compact('data'));
             }
         } elseif ($loggedUser->role_id == 1) {
-            $total_admin = User::where([['role_id', config('constants.admin_role_id')]])->count();
-            $admins_list = User::where([['role_id', config('constants.admin_role_id')], ['status', 1]])->take(5)->orderBy('id', 'desc')->get();
+            // Count total admins and fetch a list of admins
+            $total_admin = User::where('role_id', config('constants.admin_role_id'))->count();
+            $admins_list = User::where('role_id', config('constants.admin_role_id'))->where('status', 1)->take(5)->orderBy('id', 'desc')->get();
     
-            $all_user = User::count(); // Count all users
-    
-            $data = (object)array(
+            // Count all users
+           
+            
+            // Debugging statement to check if $states is returning the expected result
+          
+            // Create data object to pass to view
+            $data = (object) [
                 'total_admin' => $total_admin,
                 'admins_list' => $admins_list,
-                'all_user' => $all_user // Pass all_user to the view
-            );
+            ];
     
             return view('backend.users.superadmin-dashboard', compact('data'));
         }
     }
+    
+    
     
     
     
@@ -376,26 +394,27 @@ class UsersController extends Controller
     }
     public function Complaint_Update(Request $request, $id)
     { 
-       
-        $complaint_id = $id;
+        // Fetch the complaint object
+        $complaint = Complaint::findOrFail($id);
+        // dd($complaint);
+    
         $status = $request->input('status');
         $remark = $request->input('remark');
         $user_id = auth()->id(); // Get the current user's ID
         
         // Save remark
-        ComplaintRemark::create([
-            'complaint_id' => $complaint_id,
-            'user_id' => $user_id, // Associate the current user's ID with the complaint remark
+     $rr =   ComplaintRemark::create([
+            'complaint_id' => $complaint->id, // Use complaint's ID
+            'user_id' => $user_id,
             'status' => $status,
             'remark' => $remark
         ]);
-    
+    // dd($rr);
         // Update complaint status
-        Complaint::where('id', $complaint_id)
-            ->update(['status' => $status]);
+        $complaint->update(['status' => $status]);
     
         return redirect()->back()->with('success', 'Complaint details updated successfully');
-    }
+    } 
     
     
         

@@ -3,7 +3,6 @@
 
     @section('content')
     
-    
     <div class="pcoded-main-container">
         <div class="pcoded-content">
 
@@ -18,11 +17,11 @@
                             <tbody>
                                 <tr>
                                     <td><b>Complaint Number</b></td>
-                                    <td>{{ $complaint->complaintNumber }}</td>
+                                    <td>{{ $complaint->id }}</td>
                                     <td><b>Complainant Name</b></td>
-                                    <td>{{ $complaint->user->fullName }}</td>
+                                    <td>{{ $complaint->user->name }}</td>
                                     <td><b>Reg Date</b></td>
-                                    <td>{{ $complaint->regDate }}</td>
+                                    <td>{{ $complaint->created_at }}</td>
                                 </tr>
 
                                 <tr>
@@ -30,7 +29,7 @@
 
                                     <td>{{ $complaint->subcategory }}</td>
                                     <td><b>Complaint Type</b></td>
-                                    <td>{{ $complaint->complaintType }}</td>
+                                    <td>{{ $complaint->complaint_type }}</td>
                                 </tr>
 
                                 <tr>
@@ -42,14 +41,14 @@
 
                                 <tr>
                                     <td><b>Complaint Details</b></td>
-                                    <td colspan="5">{{ $complaint->complaintDetails }}</td>
+                                    <td colspan="5">{{ $complaint->complaint_details }}</td>
                                 </tr>
 
                                 <tr>
                                     <td><b>File (if any)</b></td>
                                     <td colspan="5">
-                                        @if ($complaint->complaintFile)
-                                            <a href="../user/complaintdocs/{{ $complaint->complaintFile }}" target="_blank">View File</a>
+                                        @if ($complaint->complaint_file)
+                                        <img src="{{ asset('complaintdocs/' . $complaint->complaint_file) }}" alt="complain Image" class="rounded-circle" style="max-width:50px;">
                                         @else
                                             File NA
                                         @endif
@@ -59,12 +58,14 @@
                                 <tr>
                                     <td><b>Final Status</b></td>
                                     <td colspan="5">
-                                        @if ($complaint->status == '')
-                                            <span class="badge badge-danger">Not Processed Yet</span>
-                                        @elseif ($complaint->status == 'in process')
+                                        @if($complaint->status == '')
+                                        <span class="badge badge-danger">Not Processed Yet</span>
+                                        @elseif($complaint->status == 'in process')
                                             <span class="badge badge-warning">In Process</span>
-                                        @elseif ($complaint->status == 'closed')
+                                        @elseif($complaint->status == 'closed')
                                             <span class="badge badge-success">Closed</span>
+                                        @elseif($complaint->status == 'padding')
+                                            <span class="badge badge-info">Padding</span>
                                         @endif
                                     </td>
                                 </tr>

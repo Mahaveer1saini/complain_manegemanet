@@ -117,29 +117,93 @@ class ComplaintController extends Controller
     public function complaint_history()
     {
         $user = Auth::user();
-        $complaints = Complaint::all(); // Assuming you have a Complaint model
-        return view('backend.user.complain-history', compact('complaints'),['user' => $user]);
+        $complaints = Complaint::where('user_id', $user->id)->get();
+        return view('backend.user.complain-history', compact('complaints', 'user'));
     }
 
 
-        public function complaint_show($id)
-        {
-            $user = Auth::user();
-            $data = User::find($id);
-            $complaint = Complaint::with(['user', 'category'])
-                ->where('user_id', $id)
-                ->firstOrFail();
+    public function complaint_show($id)
+    {
+      $user = Auth::user();
+      $complaint = Complaint::find($id);
+      return view('backend.user.complain-show',compact('complaint','user'));
+    }
 
-            $remarks = $complaint->remarks()->orderBy('created_at', 'desc')->get();
-
-            return view('backend.user.complain-show', compact('complaint', 'data'),['user' => $user]);
-
-
+        
+    public function complaint_update($id)
+    {
+      $user = Auth::user();
+      $categories = categories::all();
+      $states = State::all();
+      $Complaint = Complaint::find($id);
+      $subcategories = [];
+        foreach ($categories as $category) {
+            $subcategories[$category->id] = subcategories::where('category_id', $category->id)->get();
         }
+      return view('backend.user.complain-update', compact('Complaint','categories','states','user','subcategories'));
+     
+    }
 
+    public function complaint_edit(Request $request, $id)
+    {
+        $request->validate([
+            'category' => 'required',
+            'subcategory' => 'required',
+            'complain_type' => 'required',
+            'state' => 'required',
+            'noc' => 'required',
+            'complaint_details' => 'required|max:20',
+            'complaint_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file types and size as needed
+            'district' => 'required',
+            'tehsil' => 'required',
+            'village' => 'required',
+            'word' => 'required|numeric',
+        ]);
+    
+        // Find the complaint record by ID
+        $complaint = Complaint::findOrFail($id);
+    
+        // Update the complaint record with the new data
+        $complaint->category = $request->input('category');
+        $complaint->subcategory = $request->input('subcategory');
+        $complaint->complaint_type = $request->input('complaint_type');
+        $complaint->state = $request->input('state');
+        $complaint->noc = $request->input('noc');
+        $complaint->complaint_details = $request->input('complaint_details');
+    
+        // Handle file upload if necessary
+        if ($request->hasFile('complaint_file')) {
+            $image = $request->file('complaint_file');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'), $imageName);
+            $complaint->complaint_file = $imageName;
+        }
+    
+        $complaint->district = $request->input('district');
+        $complaint->tehsil = $request->input('tehsil');
+        $complaint->village = $request->input('village');
+        $complaint->word = $request->input('word');
+        
+        // Save the updated complaint record
+        $complaint->save();
+    
+        // Redirect the user back or to another page after successful edit
+        return redirect()->route('user.complaint-history');
+    }
+
+    public function complaint_destroy($id)
+    {
+      $Complaint = Complaint::find($id);
+      $Complaint->delete();
+      return redirect()->route('user.complaint-history')
+        ->with('success', 'Complaint deleted successfully');
+    }
+    
+     
+    }
 
     
 
 
-}
+
 

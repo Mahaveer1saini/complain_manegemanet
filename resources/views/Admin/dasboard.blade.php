@@ -44,7 +44,7 @@
                             <i class="fas fa-file"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$all_categories}}</h4>
                             <a href=""><h6>Total Category</h6></a>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             <i class="fas fa-file"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$all_subcategories}}</h4>
                             <a href=""><h6>Total Subcategory</h6></a>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             <i class="fas fa-globe"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$all_state}}</h4>
                             <a href=""><h6>Total State</h6></a>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             <i class="fas fa-file"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$all_Complaint}}</h4>
                             <a href=""><h6>Total Complaints</h6></a>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                             <i class="fas fa-file"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$paddingComplaintCount}}</h4>
                             <a href=""><h6>Pending Complaints</h6></a>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                             <i class="fas fa-file"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$processComplaintCount}}</h4>
                             <a href=""><h6>Inprocess Complaints</h6></a>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                             <i class="fas fa-file"></i>
                         </div>
                         <div class="col-9">
-                            <h4></h4>
+                            <h4>{{$closedComplaintCount}}</h4>
                             <a href=""><h6>Closed Complaints</h6></a>
                         </div>
                     </div>

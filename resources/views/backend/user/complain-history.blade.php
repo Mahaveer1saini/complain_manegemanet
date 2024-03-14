@@ -37,8 +37,16 @@
                         </td>
                         <td>
                             <a href="{{ route('user.complaint.details', $complaint->id) }}" class="btn btn-primary btn-sm">View Details</a>
+                            <a href="{{ route('user.complaint_update', $complaint->id) }}"
+                                class="btn btn-primary btn-sm">Edit</a>
+                            <a><form action="{{ route('user.complaint_destroy', $complaint->id) }}" method="post">
+                                    @csrf
+                                    @method('get')
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                               </form>
+                            </a>
                         </td>
-                    </tr>
+                       </tr>
                     @endforeach
                 </tbody>
             </table>

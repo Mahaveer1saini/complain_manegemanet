@@ -19,13 +19,14 @@
                                 </tr>
                                 <tr height="50">
                                     <td><b>Status</b></td>
-                                    <td>
-                                        <select name="status" required class="form-control">
+                                        <td>
+                                          <select name="status" required class="form-control">
                                             <option value="">Select Status</option>
                                             <option value="in process">In Process</option>
                                             <option value="closed">Closed</option>
-                                        </select>
-                                    </td>
+                                            <option value="padding">padding</option>
+                                          </select>
+                                        </td>
                                 </tr>
                                 <tr height="50">
                                     <td><b>Remark</b></td>

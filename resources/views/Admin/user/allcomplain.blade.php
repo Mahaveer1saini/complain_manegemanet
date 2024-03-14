@@ -71,16 +71,18 @@
                                                                     @endif
                                                                    
                                                                 </td>
-                                                                <td>{{ $allComplaint->village }}</td>
-                                                                <td>{{ $allComplaint->tehsil }}</td>
+                                                                <td>{{\Illuminate\Support\Str::limit( $allComplaint->village,5)}}</td>
+                                                                <td>{{\Illuminate\Support\Str::limit( $allComplaint->tehsil,5)}}/td>
                                                                 <td>{{ $allComplaint->word }}</td>
                                                                 <td>
                                                                     @if($allComplaint->status == '')
-                                                                        <span class="badge badge-danger">Not Processed Yet</span>
+                                                                        <span class="badge badge-danger">Processed Yet</span>
                                                                     @elseif($allComplaint->status == 'in process')
-                                                                        <span class="badge badge-warning">In Process</span>
+                                                                        <span class="badge badge-warning">In Processing</span>
                                                                     @elseif($allComplaint->status == 'closed')
                                                                         <span class="badge badge-success">Closed</span>
+                                                                    @elseif($allComplaint->status == 'padding')
+                                                                        <span class="badge badge-info">Padding</span>
                                                                     @endif
                                                                 </td>
                                                                 <td>

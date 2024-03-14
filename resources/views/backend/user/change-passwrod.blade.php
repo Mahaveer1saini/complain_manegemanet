@@ -1,12 +1,10 @@
 
     <!-- [ Main Content ] start -->
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.app')@section('content')
 
 <div class="pcoded-main-container">
     <div class="pcoded-content">
-        <form action="{{ route('admin.updatePassword') }}" method="POST" role="form text-left">
+        <form action="{{ route('user.updatePassword') }}" method="POST" role="form text-left">
             @csrf
             <div class="row">
                  <div class="col-12">
@@ -35,18 +33,11 @@
          </form>
    </div>
 </div>
-
-
-
-
 @endsection
-
 @section('customJs')
-
 <script>
     console.log("Hello");
 </script>
-    
 @endsection
 
 
