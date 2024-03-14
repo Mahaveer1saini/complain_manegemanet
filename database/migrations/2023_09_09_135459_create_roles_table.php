@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('role_type');
             $table->integer('status')->default(1)->index('status');
             $table->timestamps();
-
             $table->index(['id', 'name', 'status'], 'id');
             $table->index(['name'], 'name');
         });

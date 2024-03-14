@@ -42,7 +42,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->contact = $request->contact;
         $user->status = 1;
-        $user->role_id = 6;
+        $user->role_id = 7;
         $user->save();
 
         return redirect('/')->with('success', 'Registration successful. You can now login.');
@@ -63,7 +63,7 @@ class UserController extends Controller
             $user = Auth::user();
             
             // Check if the authenticated user has the role ID 6
-            if ($user->role_id == 6) {
+            if ($user->role_id == 7) {
                 return redirect()->route('user.user_dashboard');
             } else {
                 Auth::logout();
@@ -192,5 +192,10 @@ class UserController extends Controller
         }
 
 
-}
+    }
+
+
+
+
+ 
 }

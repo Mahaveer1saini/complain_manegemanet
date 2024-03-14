@@ -96,7 +96,7 @@ class UsersController extends Controller
     
         if ($loggedUser->role_id == 2) {
             // Count all users with role_id 6 (assuming this is the State role)
-            $all_user = User::where('role_id', 6)->count();
+            $all_user = User::where('role_id', 7)->count();
             $all_state = State::count();
             $all_Complaint = Complaint::count();
             $closedComplaintCount = Complaint::where('status', 'closed')->count();
@@ -180,50 +180,32 @@ class UsersController extends Controller
         if (!Auth::guest()) {
             return redirect()->route('admin.dashboard');
         }
-    
+
         $attributes = request()->validate([
             'username' => 'required',
             'password' => 'required'
         ]);
-    
-        if (filter_var($attributes['username'], FILTER_VALIDATE_EMAIL)) {
-            $attributes['email'] = $attributes['username'];
-            unset($attributes['username']);
-        }
-    
+
         if (Auth::attempt($attributes)) {
-            $roles = Role::where('id', '=', Auth::user()->role_id)->first();
-            if (!$roles->status) {
-                Auth::logout();
-                return back()->with('error', 'Your role is inactive');
-            }
-            if (!Auth::user()->status) {
-                Auth::logout();
-                return back()->with('error', 'Your account is inactive');
-            }
-    
             $loggedUser = Auth::user();
-    
-            if ($loggedUser->role_id > 1) {
-                if ($loggedUser->package_valid_date < Config::get('current_date') && $loggedUser->role_id == 2) {
-                    $result = array(
-                        "status" => 0,
-                        "message" => 'Your plan expiry. Please recharge immediately'
-                    );
-                    return redirect()->route('admin.planexpiry', compact('result'));
-                } else {
-                    return redirect()->route('admin.dashboard')->with(['success' => 'You are logged in.']);
-                }
-                
-            } else {
+            
+            if ($loggedUser->role_id == 2) {
                 return redirect()->route('admin.dashboard')->with(['success' => 'You are logged in.']);
+            } elseif ($loggedUser->role_id == 3) {
+                return redirect()->route('mp.dashboard')->with(['success' => 'You are logged in.']);
+            } elseif ($loggedUser->role_id == 4) {
+                return redirect()->route('mla.dashboard')->with(['success' => 'You are logged in.']);
+            } elseif ($loggedUser->role_id == 5) {
+                return redirect()->route('sarpanch.dashboard')->with(['success' => 'You are logged in.']);
+            } elseif ($loggedUser->role_id == 6) {
+                return redirect()->route('member.dashboard')->with(['success' => 'You are logged in.']);
+            } else {
+                return back()->withErrors(['email' => 'Unknown role.']);
             }
         } else {
             return back()->withErrors(['email' => 'Username or password invalid.']);
         }
     }
-    
-
 
     
 
@@ -357,7 +339,7 @@ class UsersController extends Controller
     public function userList()
     {
         // Assuming you have a 'role_id' column in your users table
-        $users = User::where('role_id', 6)->get();
+        $users = User::where('role_id', 7)->get();
         return view('Admin.user.userlist', compact('users'));
         
     }
@@ -423,9 +405,131 @@ class UsersController extends Controller
 
 
     // Method to close the window
-    public function closeWindow()
+  
+
+
+    public function admin_ragister()
     {
-        // You can put any logic you need here
-        return redirect()->back();
+        if (!Auth::guest()) {
+           
+            return redirect()->route('admin.dashboard'); // Added semicolon and closed the if statement properly
+        }
+        $roles = Role::where('status', 1)
+        ->whereNotIn('role_type', ['superadmin', 'admin'])
+        ->get();
+       // If the user is a guest, it might be a good idea to retrieve all roles
+        return view('Admin.registor', ['roles' => $roles]);
+        
     }
-}
+ 
+    public function customer_ragister(Request $request)
+    {
+        if (!Auth::guest()) {
+            return redirect()->route('admin.dashboard');
+        }
+    
+        $request->validate([
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')],
+            'username' => ['required', 'max:50', Rule::unique('users', 'username')],
+            'password' => ['required', 'min:5', 'max:20'],
+            'role_id' => 'required',
+        ]);
+    
+        // Hash the password
+        $validatedData = $request->all();
+        $validatedData['password'] = bcrypt($request->password);
+    
+        // Store data in the database
+        User::create($validatedData);
+    
+        return redirect()->route('admin.login');
+    }
+    
+   
+
+    public function search_filter(Request $request)
+    {
+        $limit =  config('constants.pagination_page_limit');
+        $filter = $request->query();
+        $thismodel = user::sortable(['user.created_at' => 'desc']);
+        
+        $thismodel->select([
+            'users.*', 'users.created_at', 'users.name', 'users.email','users.status',
+        ]);
+
+
+        $keyword = '';
+        if (isset($filter['status']) && $filter['status'] != "") {
+            $thismodel->where('status', $filter['status']);
+        }
+        if (!empty($filter['search'])) {
+            $keyword    =   $filter['search'];
+            $thismodel->where(function ($query) use ($keyword) {
+                $query->where('users.name', 'LIKE', '%' . $keyword . '%')->orwhere('users.name', 'LIKE', '%' . $keyword . '%')->orwhere('users.email', 'LIKE', '%' . $keyword . '%')->orwhere('users.contact', 'LIKE', '%' . $keyword . '%');
+            });
+        }
+
+        if (!empty($filter['start_date']) ) {
+            $start_date_format = mysqlDateFormat($filter['start_date']);
+            $thismodel->whereDate('users.created_at', '>=', $start_date_format);
+        }
+        if (!empty($filter['end_date'])) {
+            $end_date_format = mysqlDateFormat($filter['end_date']);
+            $thismodel->whereDate('users.created_at', '<=', $end_date_format);
+        }
+        // dd(getQueryWithBindings($thismodel));
+
+       
+
+        if (isset($filter['excel_export']) || isset($filter['pdf_export'])) {
+
+            $headings = [
+                "users id", "Role_id", "Name", "email", "contact",
+             
+               
+                
+            ];
+            $thismodel->select([
+                 "users.id",
+                 'users.role_id', 'users.name', 'users.email', 'users.contact',
+                 'users.country', 'users.status',
+                 'users.status', 'users.created_at', 'users.updated_at',
+            ]);
+
+            $records = $thismodel->get();
+
+            if (isset($filter['excel_export'])) {
+                return Excel::download(new ExportUser($records, $headings), 'Customers.xlsx');
+            } else if (isset($filter['pdf_export'])) {
+                $tabel_keys = [];
+                if ($records->count() > 0) {
+                    $tabel_keys = array_keys($records[0]->toArray());
+                }
+
+                $variabls = [
+                    'top_heading' => 'Customer List',
+                    'headings' => $headings,
+                    'tabel_keys' => $tabel_keys,
+                    'records' => $records,
+                ];
+
+                $file = 'Customers.pdf';
+                $pdf =  PDF::loadview('pdf', $variabls);
+                if (count($headings) > 6) {
+                    $pdf->setPaper('a4', 'landscape');
+                }
+
+                return $pdf->download($file);
+            }
+        }
+        $customers = $thismodel->paginate($limit);
+        return view('backend.customer.index', compact('customers', 'filter'))->with('i', (request()->input('page', 1) - 1) * $limit);
+    }
+
+        
+       
+    }
+    
+    
+

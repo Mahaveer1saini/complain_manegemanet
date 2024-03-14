@@ -72,7 +72,7 @@
                                                                    
                                                                 </td>
                                                                 <td>{{\Illuminate\Support\Str::limit( $allComplaint->village,5)}}</td>
-                                                                <td>{{\Illuminate\Support\Str::limit( $allComplaint->tehsil,5)}}/td>
+                                                                <td>{{\Illuminate\Support\Str::limit( $allComplaint->tehsil,5)}}</td>
                                                                 <td>{{ $allComplaint->word }}</td>
                                                                 <td>
                                                                     @if($allComplaint->status == '')

@@ -16,13 +16,13 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control" placeholder="Full Name" name="name" value="{{ old('name') }}" required autofocus>
+                                <input type="text" class="form-control" placeholder="Full Name" name="name" value="" required autofocus>
                                 @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group mb-4">
-                                <input type="email" class="form-control" placeholder="Email ID" name="Email" value="{{ old('email') }}" required>
+                                <input type="email" class="form-control" placeholder="Email ID" name="Email" value="" required>
                                 @error('Email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror

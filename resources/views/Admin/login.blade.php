@@ -37,7 +37,7 @@
                                 <p class="mb-2 text-muted">Forgot password? <a href="" class="f-w-400">Reset</a></p>
                                 <div class="registration">
                                     Don't have an account yet?<br/><br/>
-                                    <a class="badge badge-primary" href="">Create an account</a>
+                                    <a class="badge badge-primary" href="{{ url('admin/admin_ragister') }}">Create an account</a>
                                 </div>
                                 <i class="fa fa-home" aria-hidden="true">
                                     <a class="" href="{{ url('/') }}">Back Home</a>

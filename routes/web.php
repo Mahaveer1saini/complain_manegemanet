@@ -82,8 +82,14 @@ Route::get('/', function () {
         Route::get('/Complaint_detail/{id}', [UsersController::class, 'Complaint_detail'])->name('Complaint_detail');
     
         Route::get('/complaint/{id}', [UsersController::class, 'Complaint_Edit'])->name('Complaint_Edit');
-
         Route::post('Complaint_Update/{id}', [UsersController::class, 'Complaint_Update'])->name('Complaint_Update');
+
+        Route::get('/admin_ragister', [UsersController::class, 'admin_ragister'])->name('admin_ragister');
+        Route::post('/customer_ragister', [UsersController::class, 'customer_ragister'])->name('customer_ragister');
+       
+        Route::get('/search_filter', [UsersController::class, 'search_filter'])->name('search_filter');
+        
+    
     });
    
 
