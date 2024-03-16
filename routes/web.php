@@ -18,7 +18,7 @@ Route::get('/', function () {
     Route::post('/registerStore', [UserController::class, 'register'])->name('register.store');
     Route::get('/user_login', [UserController::class, 'showLoginForm'])->name('login');
     Route::post('/user_login', [UserController::class, 'login'])->name('login.store');
-    Route::get('/user_dashboard', [UserController::class, 'user_dashboard'])->name('user_dashboard');
+    Route::get('/user_dashboard', [UserController::class, 'user_dashboard'])->name('user_dashboard')->middleware('auth');
     Route::get('/logout', [ UserController::class, 'logout'])->name('logout');
     Route::get('/profile/{id}', [ UserController::class, 'User_profile'])->name('profile');
     Route::post('/profile/update{id}',[ UserController::class, 'User_update'])->name('profile.update');
@@ -67,7 +67,7 @@ Route::get('/', function () {
         Route::post('register', [UsersController::class, 'registerStore'])->name('registerStore');
         Route::get('login', [UsersController::class, 'login'])->name('login'); // Define the route here
         Route::post('session', [UsersController::class, 'loginStore'])->name('loginStore');
-        Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard'); 
+        Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard')->middleware('auth'); 
         Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
         Route::get('/adminProfile', [UsersController::class, 'adminProfile'])->name('adminProfile');
         Route::get('/edit-profile', [UsersController::class, 'editProfile'])->name('admineditProfile');
@@ -91,6 +91,8 @@ Route::get('/', function () {
         
     
     });
+
+   
    
 
   

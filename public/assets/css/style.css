@@ -30176,3 +30176,25 @@ new-task label input[type=checkbox] {
 }
 
 /**====== user card css end ======**/
+ /* Style for all DataTable buttons */
+ /* Button Styles */
+.dt-buttons .buttons-html5,
+.dt-buttons .buttons-print,
+.dt-buttons .buttons-pdf,
+.dt-buttons .buttons-csv,
+.dt-buttons .buttons-copy {
+    background-color: hotpink;
+    color: #006875;
+    border-color: #005964;
+}
+
+/* Button Hover Styles */
+.dt-buttons .buttons-html5:hover,
+.dt-buttons .buttons-print:hover,
+.dt-buttons .buttons-pdf:hover,
+.dt-buttons .buttons-csv:hover,
+.dt-buttons .buttons-copy:hover {
+    background-color: #6610f2;
+    color: #04a9f5;
+    border-color: #e83e8c;
+}

@@ -1,3 +1,5 @@
+
+
 @extends('Admin.layouts.app')
  @section('content')
  <section class="pcoded-main-container">
@@ -5,57 +7,7 @@
            <div class="card-body">
                         <h5>View and Update Users Details</h5>
                         <hr>
-                        <form action="{{ route('admin.search_filter') }}" method="GET">
-                          @csrf
-                          <div class="border">
-                              <div class="d-flex flex-row align-content-between flex-wrap">
-                                  <div class="p-2 flex-fill">
-                                      <input type="text" id="search" name="search" class="form-control"
-                                          value="{{ !empty($filter['search']) ? $filter['search'] : '' }}"
-                                          autocomplete="off"
-                                          placeholder="Search By Customer Id, Name, Email, Mobile no." title="Search By Customer Id, Name, Email, Mobile no.">
-                                  </div>
-                                  <div class="p-2 flex-fill">
-                                      <select class="form-control form-select" id="status" name="status">
-                                          <option value="">Status</option>
-                                          <option value="1"
-                                              {{ isset($filter['status']) && $filter['status'] == 1 ? 'selected' : '' }}>
-                                              Active</option>
-                                          <option value="0"
-                                              {{ isset($filter['status']) && $filter['status'] == 0 ? 'selected' : '' }}>
-                                              Inactive</option>
-                                      </select>
-                                  </div>
-              
-                                  <div class="p-2 flex-fill">
-                                      <input type="text" name="start_date" class="form-control datepicker"
-                                          autocomplete="off"
-                                          value="{{ !empty($filter['start_date']) ? $filter['start_date'] : '' }}"
-                                          placeholder="Start Date" />
-                                  </div>
-                                  <div class="p-2 flex-fill">
-                                      <input type="text" name="end_date" class="form-control datepicker"
-                                          autocomplete="off"
-                                          value="{{ !empty($filter['end_date']) ? $filter['end_date'] : '' }}"
-                                          placeholder="End Date" />
-                                  </div>
-                                  <div class="p-2">
-                                      <button type="submit" class="btn btn-primary shadow-primary mb-0 button"
-                                          name="submit" data-toggle="tooltip" data-placement="top" title="Filter">Filter</button>
-                                      <button type="submit" name="excel_export" value="Export"
-                                          class="btn btn-primary excel_export shadow-primary mb-0 button"
-                                          name="submit" data-toggle="tooltip" data-placement="top" title="Export"><i class="fas fa-file-excel"></i> Export</button>
-                                      <button type="submit" name="pdf_export" value="Pdf"
-                                          class="btn btn-primary pdf_export shadow-primary mb-0 button"
-                                          name="submit" data-toggle="tooltip" data-placement="top" title="PDF"><i class="fas fa-file-pdf"></i> Pdf</button>
-              
-                                  </div>
-                              </div>
-                          </div>
-                      </form>
-
-                      
-                        <div class="row">
+                       <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body table-responsive">
@@ -172,6 +124,26 @@
     </script>
 
 
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.css">
+  <script>
+    new DataTable('#example', {
+    layout: {
+        topStart: {
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+        }
+    }
+});
+    </script>
 @endsection
 
  

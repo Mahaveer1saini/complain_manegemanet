@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\AstrologerInformation;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Password;
+use App\DataTables\Backend\CustomerDataTable;
 // use Illuminate\Auth\Events\PasswordReset;
 use App\Console\Commands\MyCommand;
 use URL;
@@ -40,7 +41,7 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-
+      
         $loggedUser = Auth::user();
         $limit =  config('constants.pagination_page_limit');
         $thismodel = User::latest()->with('role');
@@ -335,14 +336,14 @@ class UsersController extends Controller
             return redirect()->route('admin.admin_password')->with('error', 'Old Password does not match!');
         }
     }
-
-    public function userList()
+    public function userList(CustomerDataTable $dataTable)
     {
-        // Assuming you have a 'role_id' column in your users table
+       
+       
         $users = User::where('role_id', 7)->get();
         return view('Admin.user.userlist', compact('users'));
-        
     }
+    
 
     public function destroy(string $id)
     { 
