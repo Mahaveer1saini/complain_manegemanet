@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\DataTables\\Backend\\CustomerDataTable' => $baseDir . '/app/DataTables/Backend/CustomerDataTable.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\backend\\CategoryController' => $baseDir . '/app/Http/Controllers/backend/CategoryController.php',
@@ -14,7 +15,8 @@ return array(
     'App\\Http\\Controllers\\backend\\StateController' => $baseDir . '/app/Http/Controllers/backend/StateController.php',
     'App\\Http\\Controllers\\front\\UserController' => $baseDir . '/app/Http/Controllers/front/UserController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
-    'App\\Http\\Middleware\\AdminAuthentication' => $baseDir . '/app/Http/Middleware/AdminAuthentication.php',
+    'App\\Http\\Middleware\\AdminAuth' => $baseDir . '/app/Http/Middleware/AdminAuth.php',
+    'App\\Http\\Middleware\\AdminRedirectIfAuthenticated' => $baseDir . '/app/Http/Middleware/AdminRedirectIfAuthenticated.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckPermission' => $baseDir . '/app/Http/Middleware/CheckPermission.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -23,6 +25,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
+    'App\\Http\\Middleware\\UserAuth' => $baseDir . '/app/Http/Middleware/UserAuth.php',
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Models\\Complaint' => $baseDir . '/app/Models/Complaint.php',

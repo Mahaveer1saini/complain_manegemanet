@@ -33,7 +33,7 @@ Route::get('/', function () {
     Route::get('/complaint_update/{id}', [ComplaintController::class, 'complaint_update'])->name('complaint_update');
     Route::post('/complaint_edit/{id}', [ComplaintController::class, 'complaint_edit'])->name('complaint_edit');
     Route::get('/complaint_destroy/{id}', [ComplaintController::class, 'complaint_destroy'])->name('complaint_destroy');
-    
+
     //categories
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
@@ -48,7 +48,7 @@ Route::get('/', function () {
     Route::get('/states/{state}/edit', [StateController::class, 'edit'])->name('states.edit');
     Route::put('/states/{state}', [StateController::class, 'update'])->name('states.update');
     Route::delete('/states/{state}', [StateController::class, 'destroy'])->name('states.destroy');
-    
+
     //subcategories
     Route::get('/subcategories', [subcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/subcategories/create', [subcategoryController::class, 'create'])->name('subcategories.create');
@@ -58,16 +58,16 @@ Route::get('/', function () {
     Route::put('/subcategories/{subcategory}', [subcategoryController::class, 'update'])->name('subcategories.update');
     Route::delete('/subcategories/{subcategory}', [subcategoryController::class, 'destroy'])->name('subcategories.destroy');
     Route::post('/submit-complaints', [ComplaintController::class, 'getSubcategories'])->name('get-subcategories');
-    
+
 
 });
-    // routes/web.php
+Route::group(['middleware' => 'check'], function () {
     Route::group(['prefix' => '/admin', 'as' => 'admin.'], function () {
         Route::get('register', [UsersController::class, 'register'])->name('register');
         Route::post('register', [UsersController::class, 'registerStore'])->name('registerStore');
         Route::get('login', [UsersController::class, 'login'])->name('login'); // Define the route here
         Route::post('session', [UsersController::class, 'loginStore'])->name('loginStore');
-        Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard')->middleware('auth'); 
+        Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard')->middleware('auth');
         Route::get('/logout', [UsersController::class, 'logout'])->name('logout');
         Route::get('/adminProfile', [UsersController::class, 'adminProfile'])->name('adminProfile');
         Route::get('/edit-profile', [UsersController::class, 'editProfile'])->name('admineditProfile');
@@ -80,19 +80,18 @@ Route::get('/', function () {
         //
         Route::get('/all-complaint', [UsersController::class, 'all_Complaint'])->name('all-complaint');
         Route::get('/Complaint_detail/{id}', [UsersController::class, 'Complaint_detail'])->name('Complaint_detail');
-    
+
         Route::get('/complaint/{id}', [UsersController::class, 'Complaint_Edit'])->name('Complaint_Edit');
         Route::post('Complaint_Update/{id}', [UsersController::class, 'Complaint_Update'])->name('Complaint_Update');
 
         Route::get('/admin_ragister', [UsersController::class, 'admin_ragister'])->name('admin_ragister');
         Route::post('/customer_ragister', [UsersController::class, 'customer_ragister'])->name('customer_ragister');
-       
+
         Route::get('/search_filter', [UsersController::class, 'search_filter'])->name('search_filter');
-        
-    
+
     });
 
-   
-   
+});
 
-  
+
+
