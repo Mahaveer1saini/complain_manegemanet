@@ -66,19 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
     protected $routeMiddleware = [
-        'check' => \App\Http\Middleware\CheckPermission::class,
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'admin.auth' => \App\Http\Middleware\AdminAuth::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'admin.guest' => \App\Http\Middleware\AdminRedirectIfAuthenticated::class,
-        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'user' => \App\Http\Middleware\UserAuth::class,
-
+        // other middleware entries...
+        'check.guest' => \App\Http\Middleware\CheckGuest::class,
     ];
+    
 }

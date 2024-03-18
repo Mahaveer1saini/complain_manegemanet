@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->string('role_type');
+            $table->string('role_type')->nullable();
             $table->integer('status')->default(1)->index('status');
             $table->timestamps();
             $table->index(['id', 'name', 'status'], 'id');
             $table->index(['name'], 'name');
         });
+
+       
     }
 
     /**

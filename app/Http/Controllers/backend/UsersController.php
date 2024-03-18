@@ -216,7 +216,9 @@ class UsersController extends Controller
 
         Auth::logout();
         return redirect()->route('admin.login')->with(['success' => 'You\'ve been logged out.']);
+
     }
+  
 
     public function forgotPassword()
     {
@@ -368,25 +370,20 @@ class UsersController extends Controller
 
     public function Complaint_Edit($id)
     {
-        
         $complaint = Complaint::where('id', $id)->firstOrFail();
         return view('Admin.user.editcomplaint', compact('complaint'));
-       
-       
-        
+    
     }
     public function Complaint_Update(Request $request, $id)
     { 
-        // Fetch the complaint object
+       
         $complaint = Complaint::findOrFail($id);
-        // dd($complaint);
-    
         $status = $request->input('status');
         $remark = $request->input('remark');
-        $user_id = auth()->id(); // Get the current user's ID
+        $user_id = auth()->id(); 
         
         // Save remark
-     $rr =   ComplaintRemark::create([
+        $rr =   ComplaintRemark::create([
             'complaint_id' => $complaint->id, // Use complaint's ID
             'user_id' => $user_id,
             'status' => $status,
