@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RolesController extends Controller
 {
@@ -20,18 +21,19 @@ class RolesController extends Controller
     public function index()
     {
         $loggedUser = Auth::user();
+        
         $limit = config('constants.pagination_page_limit');
 
         $thismodel = Role::orderBy('id', 'asc');
-        if ($loggedUser->role_id > 1) {
-            $thismodel->where('id', '>', $loggedUser->role_id);
-        }
-
+       
+        $thismodel->where('role_type', 'Staff');
         $roles = $thismodel->paginate($limit);
 
         return view('Admin.roles.index', compact('roles'))->with('i', (request()->input('page', 1) - 1) * $limit);
       
     }
+    
+  
 
     /**
      * Show the form for creating a new resource.
@@ -49,14 +51,23 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+
     public function store(Request $request)
     {
-       $attributes = request()->validate([
+        $attributes = request()->validate([
             'name' => ['required', 'max:50', Rule::unique('roles', 'name')],
             'status' => ['nullable', 'numeric'],
         ]);
 
-        $role = Role::create($attributes);
+        if(empty($attributes['status'])){
+            $attributes['status'] = 0;
+        }
+        $attributes['role_type'] = 'Staff';
+        
+        Role::create($attributes);
+
         return redirect()->route('admin.roles.index')
             ->with('success', 'Role created successfully.');
     }
@@ -113,14 +124,15 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        Session::flash('error', 'Deleted ! ');
+        return redirect()->route('admin.roles.index');
+            
+           
 
-        return redirect()->route('admin.roles.index')
-            ->with('success', 'Role deleted successfully');
     }
 
     public function changeStatus(Request $request)
     {
-        dd('hiii');
         $role = Role::find($request->id)->update(['status' => $request->status]);
         return response()->json(['success' => 'Status changed successfully.']);
     }

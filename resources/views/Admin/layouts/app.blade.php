@@ -1,6 +1,8 @@
 
 <head>
     @include('Admin.layouts.head')
+  
+
 </head>
 <body>
     <header>
@@ -12,7 +14,12 @@
     </aside>
 
     <main>
-        @yield('content')
+       
+       
+         @yield('content')
+         @include('Admin.layouts.alert_message')
+       
+       
     </main>
 
     <footer>
