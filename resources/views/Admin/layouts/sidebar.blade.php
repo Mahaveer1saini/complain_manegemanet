@@ -80,7 +80,7 @@
                         <a href="{{route('staff_management.roles.index')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">user_prmission</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Complaints Report</span></a>
+                        <a href="{{route('staff_management.staff.index')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Complaints Report</span></a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">
                         <label>Search</label>

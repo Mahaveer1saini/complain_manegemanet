@@ -41,6 +41,8 @@
                                                             <th>NOC</th>
                                                             <th>Complaint Details</th>
                                                             <th>Complaint File</th>
+                                                            <th>city</th>
+                                                            <th>country</th>
                                                             <th>Village</th>
                                                             <th>Tehsil</th>
                                                             <th>Word</th>
@@ -71,6 +73,8 @@
                                                                     @endif
                                                                    
                                                                 </td>
+                                                                <td>{{ $allComplaint->city }}</td>
+                                                                <td>{{ $allComplaint->country }}</td>
                                                                 <td>{{\Illuminate\Support\Str::limit( $allComplaint->village,5)}}</td>
                                                                 <td>{{\Illuminate\Support\Str::limit( $allComplaint->tehsil,5)}}</td>
                                                                 <td>{{ $allComplaint->word }}</td>

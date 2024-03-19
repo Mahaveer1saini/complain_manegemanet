@@ -20,8 +20,18 @@ class RolesController extends Controller
 
      public function index()
      {
-         $roles = Role::whereNotIn('id', [1, 2])->get();
-         return view('Admin.roles.index', compact('roles'));
+         
+        $loggedUser = Auth::user();
+        $limit = config('constants.pagination_page_limit');
+
+        $thismodel = Role::orderBy('id', 'asc');
+        // if ($loggedUser->role_id > 1) {
+        //     $thismodel->where('id', '>', $loggedUser->role_id);
+        // }
+        $thismodel->where('role_type', 'Staff');
+        $roles = $thismodel->paginate($limit);
+
+        return view('Admin.roles.index', compact('roles'))->with('i', (request()->input('page', 1) - 1) * $limit);
      }
      
      
@@ -112,7 +122,6 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-
         return redirect()->route('staff_management.roles.index')
             ->with('success', 'Role deleted successfully');
     }
@@ -123,6 +132,14 @@ class RolesController extends Controller
         $role = Role::find($request->id)->update(['status' => $request->status]);
 
         return response()->json(['success' => 'Status changed successfully.']);
+    }
+
+    public function permission($id)
+    {
+        $role = Role::where('id', $id)->first();
+       
+        // $menu = Menu::where('status', 1)->with('submenus')->get();
+      return view('Admin.roles.permission', compact('role'));
     }
     
 }

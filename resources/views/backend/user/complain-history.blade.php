@@ -12,8 +12,8 @@
                     <tr>
                         <th>#</th>
                         <th>Complaint No</th>
-                        <th>Complainant Name</th>
-                        <th>Reg Date</th>
+                        <th>Name</th>
+                        <th>Date</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>

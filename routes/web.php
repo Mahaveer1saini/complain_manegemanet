@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\front\UserController;
 use App\Http\Controllers\backend\adminController;
 use App\Http\Controllers\Backend\RolesController;
+use App\Http\Controllers\Backend\StaffController;
 use App\Http\Controllers\backend\StateController;
 use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\backend\CategoryController;
@@ -96,6 +97,15 @@ Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], func
     Route::post('/roles/change-status', [RolesController::class, 'changeStatus'])->name('roles.changeStatus');
     Route::get('/roles/permission/{id}', [RolesController::class, 'permission'])->name('roles.permission');
     Route::post('/roles/permissionUpdate', [RolesController::class, 'permissionUpdate'])->name('roles.permissionUpdate');
+
+
+    Route::resource('staff', StaffController::class);
+    Route::delete('/staff/{uni_id}/trash', [StaffController::class, 'trash'])->name('staff.trash');
+    Route::post('/staff/change-status', [StaffController::class, 'changeStatus'])->name('staff.changeStatus');
+    Route::get('/staff-import', [StaffController::class, 'importView'])->name('staff.importView');
+    Route::post('/staff-import', [StaffController::class, 'import'])->name('staff.import');
+    Route::post('/staff/getState', [StaffController::class, 'getState'])->name('staff.getState');
+    Route::post('/staff/getCity', [StaffController::class, 'getCity'])->name('staff.getCity');
 
 });
 

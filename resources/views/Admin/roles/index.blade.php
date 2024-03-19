@@ -45,7 +45,7 @@
                                         @foreach ($roles as $role)
                                             <tr>
                                                 <td class="text-center" style="width:50px;">
-                                                    <p class="text-xs font-weight-bold mb-0"></p>
+                                                    <p class="text-xs font-weight-bold mb-0">{{ ++$i }}</p>
                                                 </td>
                                                 <td class="text-left">
                                                     <p class="text-xs font-weight-bold mb-0">{{ $role->name }}</p>
