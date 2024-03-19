@@ -137,7 +137,7 @@ class RolesController extends Controller
     public function permission($id)
     {
         $role = Role::where('id', $id)->first();
-       
+    //    dd($role);
         // $menu = Menu::where('status', 1)->with('submenus')->get();
       return view('Admin.roles.permission', compact('role'));
     }
