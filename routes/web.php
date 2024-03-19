@@ -89,10 +89,15 @@ Route::get('/', function () {
         Route::post('/customer_ragister', [UsersController::class, 'customer_ragister'])->name('customer_ragister');
         Route::get('/search_filter', [UsersController::class, 'search_filter'])->name('search_filter');
 
-        Route::resource('roles', RolesController::class);
-        Route::post('/roles/change-status', [RolesController::class, 'changeStatus'])->name('roles.changeStatus');
+});
 
-    });
+Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], function () {
+    Route::resource('roles', RolesController::class);
+    Route::post('/roles/change-status', [RolesController::class, 'changeStatus'])->name('roles.changeStatus');
+    Route::get('/roles/permission/{id}', [RolesController::class, 'permission'])->name('roles.permission');
+    Route::post('/roles/permissionUpdate', [RolesController::class, 'permissionUpdate'])->name('roles.permissionUpdate');
+
+});
 
 
 

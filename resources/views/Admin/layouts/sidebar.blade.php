@@ -77,7 +77,7 @@
                         <label>Reports</label>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">User Reports</span></a>
+                        <a href="{{route('staff_management.roles.index')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">user_prmission</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="" class="nav-link"><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Complaints Report</span></a>
@@ -89,7 +89,7 @@
                         <a href="" class="nav-link"><span class="pcoded-micon"><i class="feather icon-search"></i></span><span class="pcoded-mtext">User Search</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><span class="pcoded-micon"><i class="feather icon-search"></i></span><span class="pcoded-mtext">Search Complaint</span></a>
+                        <a href="" class="nav-link"><span class="pcoded-micon"><i class="feather icon-search"></i></span><span class="pcoded-mtext"></span></a>
                     </li>
                 </ul>
             </div>

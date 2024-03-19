@@ -18,18 +18,13 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
-    {
-        $loggedUser = Auth::user();
-        $limit = config('constants.pagination_page_limit');
-
-        $thismodel = Role::orderBy('id', 'asc');
-        $thismodel->where('role_type', 'Staff');
-        $roles = $thismodel->paginate($limit);
-
-        return view('Admin.roles.index', compact('roles'))->with('i', (request()->input('page', 1) - 1) * $limit);
-    }
-
+     public function index()
+     {
+         $roles = Role::whereNotIn('id', [1, 2])->get();
+         return view('Admin.roles.index', compact('roles'));
+     }
+     
+     
     /**
      * Show the form for creating a new resource.
      *
@@ -46,15 +41,22 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+ 
+
     public function store(Request $request)
     {
-       $attributes = request()->validate([
+        $attributes = request()->validate([
             'name' => ['required', 'max:50', Rule::unique('roles', 'name')],
             'status' => ['nullable', 'numeric'],
         ]);
 
-        $role = Role::create($attributes);
-        return redirect()->route('admin.roles.index')
+        if(empty($attributes['status'])){
+            $attributes['status'] = 0;
+        }
+        $attributes['role_type'] = 'Staff';
+        Role::create($attributes);
+
+        return redirect()->route('staff_management.roles.index')
             ->with('success', 'Role created successfully.');
     }
 
@@ -97,7 +99,7 @@ class RolesController extends Controller
 
         $role->update($attributes);
 
-        return redirect()->route('admin.roles.index')
+        return redirect()->route('staff_management.roles.index')
             ->with('success', 'Role updated successfully');
     }
 
@@ -111,13 +113,16 @@ class RolesController extends Controller
     {
         $role->delete();
 
-        return redirect()->route('admin.roles.index')
+        return redirect()->route('staff_management.roles.index')
             ->with('success', 'Role deleted successfully');
     }
 
     public function changeStatus(Request $request)
     {
+      
         $role = Role::find($request->id)->update(['status' => $request->status]);
+
         return response()->json(['success' => 'Status changed successfully.']);
     }
+    
 }

@@ -1,5 +1,3 @@
-
-
 @extends('admin.layouts.app')
 @section('content')
 <div class="pcoded-main-container">
@@ -13,7 +11,7 @@
                                 <div>
                                     <h5 class="mb-0">All Roles</h5>
                                 </div>
-                                <a href="{{ route('admin.roles.create') }}" class="btn bg-gradient-primary btn-sm mb-0"
+                                <a href="{{ route('staff_management.roles.create') }}" class="btn bg-gradient-primary btn-sm mb-0"
                                     type="button">+&nbsp;Add New Role</a>
                             </div>
                         </div>
@@ -47,7 +45,7 @@
                                         @foreach ($roles as $role)
                                             <tr>
                                                 <td class="text-center" style="width:50px;">
-                                                    <p class="text-xs font-weight-bold mb-0">{{ ++$i }}</p>
+                                                    <p class="text-xs font-weight-bold mb-0"></p>
                                                 </td>
                                                 <td class="text-left">
                                                     <p class="text-xs font-weight-bold mb-0">{{ $role->name }}</p>
@@ -64,10 +62,10 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('admin.staff_management.roles.destroy', $role->id) }}" method="Post">
-                                                        <a class="btn btn-info btn-sm text-white" href="{{ route('admin.staff_management.roles.permission', $role->id) }}" title="Permission"><i class="fas fa-lock"></i></a>
+                                                    <form action="{{ route('staff_management.roles.destroy', $role->id) }}" method="Post">
+                                                        <a class="btn btn-info btn-sm text-white" href="{{ route('staff_management.roles.permission', $role->id) }}" title="Permission"><i class="fas fa-lock"></i></a>
                                                         <a class="btn btn-warning btn-sm text-white"
-                                                            href="{{ route('admin.staff_management.roles.edit', $role->id) }}"><i
+                                                            href="{{ route('staff_management.roles.edit', $role->id) }}"><i
                                                                 class="fas fa-edit"></i></a>
                                                         @csrf
                                                         @method('DELETE')
@@ -79,115 +77,71 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-    
+
                             </div>
-                            {{ $roles->links('pagination::bootstrap-5') }}
+                           
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @push('dashboard')
-            <script>
-                $(document).ready(function() {
-                    $('.updateStatus').on('change', function() {
-                        let ele = $(this);
-                        let _token = $('meta[name="csrf-token"]').attr('content');
-                        var status = $(this).prop('checked') == true ? 1 : 0;
-                        var id = $(this).data('id');
-                        //
-                        $.ajax({
-                            url: "{{ route('admin.roles.changeStatus') }}",
-                            type: 'post',
-                            data: {
-                                _token: _token,
-                                id: id,
-                                status: status,
-                            },
-                            success: function(result) {
-                                if (result.success) {
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: result.success,
-                                        icon: 'success',
-    
-                                    })
-                                } else {
-                                    ele.prop('checked', !status);
-                                }
-                            },
-                            error: function(xhr, ajaxOptions, thrownError) {
-                                ele.prop('checked', !status);
-                                Swal.fire({
-                                    title: 'Oops!',
-                                    text: 'Something went wrong. Please try again.',
-                                    icon: 'error',
-    
-                                })
-                            }
-    
-                        });
-                    })
-                })
-            </script>
-        @endpush
-
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
-           
         <script>
             $(document).ready(function() {
                 $('.updateStatus').on('change', function() {
                     let ele = $(this);
                     let _token = $('meta[name="csrf-token"]').attr('content');
-                    var status = $(this).prop('checked') == true ? 1 : 0;
-                    var id = $(this).data('id');
+                    let status = $(this).prop('checked') ? 1 : 0;
+                    let id = $(this).data('id');
+        
+                    // Debugging: Check data before sending AJAX request
+                    console.log("ID:", id);
+                    console.log("Status:", status);
+                    console.log("_token:", _token);
         
                     $.ajax({
-                        url: "{{ route('admin.roles.changeStatus') }}",
+                        url: "{{ route('staff_management.roles.changeStatus') }}",
                         type: 'POST',
                         data: {
                             _token: _token,
                             id: id,
                             status: status,
                         },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
                         success: function(result) {
+                            console.log("AJAX Success:", result);
                             if (result.success) {
                                 Swal.fire({
                                     title: 'Success!',
                                     text: result.success,
                                     icon: 'success',
-                                });
+                                })
                             } else {
                                 ele.prop('checked', !status);
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
+                            console.log("AJAX Error:", xhr.responseText);
                             ele.prop('checked', !status);
                             Swal.fire({
                                 title: 'Oops!',
                                 text: 'Something went wrong. Please try again.',
                                 icon: 'error',
-                            });
+                            })
                         }
                     });
-                });
-            });
+                })
+            })
         </script>
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
         <script>
             $(document).ready(function(){
                 // Activate Bootstrap toasts
                 $('.toast').toast('show');
             });
         </script>
-        
-           
+
     </div>
 </div>
 @endsection
-
-

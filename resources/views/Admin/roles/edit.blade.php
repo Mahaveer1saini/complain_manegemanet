@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.roles.update', $role) }}" method="POST">
+                <form action="{{ route('staff_management.roles.update', $role) }}" method="POST">
                     @method('PUT')
                     @csrf
                     <div>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-4">
-                        <a href="{{ route('admin.roles.index') }}" type="button" name="button" class="btn btn-light m-0">BACK TO LIST</a>
+                        <a href="{{ route('staff_management.roles.index') }}" type="button" name="button" class="btn btn-light m-0">BACK TO LIST</a>
                         <button type="submit" data-toggle="tooltip" data-placement="top" title="Create Role" name="button" class="btn bg-gradient-primary m-0 ms-2">CREATE ROLE</button>
                     </div>
                 </form>

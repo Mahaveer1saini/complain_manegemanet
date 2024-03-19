@@ -64,17 +64,19 @@ class ComplaintController extends Controller
 
     public function submitComplaint(Request $request)
     {
+        
        
         // Validate the incoming request data and assign it to $validatedData
         $validatedData = $request->validate([
             'category' => 'required',
             'subcategory' => 'required',
             'complaintype' => 'required',
-            'state' => 'required',
+            'city' => 'nullable',
+            'state' => 'nullable',
+            'country' =>'nullable',
             'noc' => 'required',
             'complaint_details' => 'required',
             'complaint_file' => 'required',
-            'district'=>'required',
             'tehsil'=>'required',
             'village'=>'required',
             'word'=>'required',
@@ -98,11 +100,12 @@ class ComplaintController extends Controller
         $complaint->category = $validatedData['category'];
         $complaint->subcategory = $validatedData['subcategory'];
         $complaint->complaint_type = $validatedData['complaintype'];
+        $complaint->country = $validatedData['country'];
         $complaint->state = $validatedData['state'];
+        $complaint->city = $validatedData['city'];
         $complaint->noc = $validatedData['noc'];
         $complaint->complaint_details = $validatedData['complaint_details'];
         $complaint->complaint_file = $compfilenew;
-        $complaint->district = $validatedData['district'];
         $complaint->tehsil = $validatedData['tehsil'];
         $complaint->village = $validatedData['village'];
         $complaint->word = $validatedData['word'];
@@ -116,6 +119,7 @@ class ComplaintController extends Controller
 
     public function complaint_history()
     {
+     
         $user = Auth::user();
         $complaints = Complaint::where('user_id', $user->id)->get();
         return view('backend.user.complain-history', compact('complaints', 'user'));
