@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -20,17 +21,11 @@ class RolesController extends Controller
 
      public function index()
      {
-         
         $loggedUser = Auth::user();
         $limit = config('constants.pagination_page_limit');
-
         $thismodel = Role::orderBy('id', 'asc');
-        // if ($loggedUser->role_id > 1) {
-        //     $thismodel->where('id', '>', $loggedUser->role_id);
-        // }
-        $thismodel->where('role_type', 'Staff');
+        $thismodel->where('role_type', 'user');
         $roles = $thismodel->paginate($limit);
-
         return view('Admin.roles.index', compact('roles'))->with('i', (request()->input('page', 1) - 1) * $limit);
      }
      
@@ -136,10 +131,9 @@ class RolesController extends Controller
 
     public function permission($id)
     {
-        $role = Role::where('id', $id)->first();
-    //    dd($role);
-        // $menu = Menu::where('status', 1)->with('submenus')->get();
-      return view('Admin.roles.permission', compact('role'));
+        $parmission  = Permission::where('id', $id)->first();
+        $role = Role::where('id', $id)->first();  
+        return view('Admin.roles.permission', compact('role','parmission'));
     }
     
 }
