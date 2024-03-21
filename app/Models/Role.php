@@ -48,8 +48,8 @@ class Role extends Model
     {
         return $this->hasMany(Role::class);
     }
-    public function notification()
+    public function permissions()
     {
-        return $this->hasMany(Notification::class);
+        return $this->belongsToMany(Permission::class);
     }
 }
