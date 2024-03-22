@@ -1,80 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- card.html  21 Nov 2019 03:54:26 GMT -->
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Otika - Admin Dashboard Template</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="fornt_theme/assets/css/app.min.css">
-  <link rel="stylesheet" href="fornt_theme/assets/bundles/chocolat/dist/css/chocolat.css">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="fornt_theme/assets/css/style.css">
-  <link rel="stylesheet" href="fornt_theme/assets/css/components.css">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" href="fornt_theme/assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+   <!-- basic -->
+
+   <!-- site metas -->
+   <title>Complaint Management System</title>
+
+   <!-- bootstrap css -->
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   <!-- style css -->
+   <link rel="stylesheet" type="text/css" href="css/style.css">
+   <!-- Responsive-->
+   <link rel="stylesheet" href="css/responsive.css">
+   <!-- fevicon -->
+   <link rel="icon" href="images/fevicon.png" type="image/gif" />
+   <!-- Scrollbar Custom CSS -->
+   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+   <!-- Tweaks for older IEs-->
+   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+   <!-- fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+   <!-- owl stylesheets -->
+   <link rel="stylesheet" href="css/owl.carousel.min.css">
+   <link rel="stylesoeet" href="css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+      media="screen">
 </head>
 
 <body>
-  <div class="loader"></div>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-               <ul class="navbar-nav">
-                  <li class="nav-item active">
-                     <a class="nav-link" href="index.php">Home</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('admin.login') }}">Admin</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('user.login') }}">User Login</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="{{route('user.login_register')}}">User Regsitration</a>
-                  </li>
-              </ul>
+   <!--header section start -->
+   <div class="header_section">
+      <div class="container-fluid ">
+         <div class="row">
+            <div class="col-sm-2 col-6">
+               <a class="logo" href="index.php"><h1 style="font-size: 40px;color: white;">CMS</h1></a>
             </div>
-         </nav>
+            <div class="col-sm-8 col-6">
+               <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                     <ul class="navbar-nav">
+                        <li class="nav-item active">
+                           <a class="nav-link" href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{ route('admin.login') }}">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{ route('user.login') }}">User Login</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="{{route('user.login_register')}}">User Regsitration</a>
+                        </li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </div>
       </div>
-        <div class="main-content">
-        <section class="section">
+    </div>
+    <br><br>
+      <section class="section">
             <div class="col-12 col-md-6 col-lg-3">
                 <div class="card card-primary">
                   <div class="card-header">
-                    <h4>complanit</h4>
+                    <h4>Card Header</h4>
                   </div>
                   <div class="card-body">
                     <p>Card <code>.card-primary</code></p>
                   </div>
                 </div>
-            </div>
+              </div>
         </section>
-       
-      </div>
-    </div>
-  </div>
-  <!-- General JS Scripts -->
-  <script src="fornt_theme/assets/js/app.min.js"></script>
-  <!-- JS Libraies -->
-  <script src="fornt_theme/assets/bundles/chocolat/dist/js/jquery.chocolat.min.js"></script>
-  <script src="fornt_theme/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
-  <!-- Page Specific JS File -->
-  <!-- Template JS File -->
-  <script src="fornt_theme/assets/js/scripts.js"></script>
-  <!-- Custom JS File -->
-  <script src="fornt_theme/assets/js/custom.js"></script>
-</body>
 
 
-<!-- card.html  21 Nov 2019 03:54:30 GMT -->
+ 
+   <script src="js/jquery.min.js"></script>
+   <script src="js/popper.min.js"></script>
+   <script src="js/bootstrap.bundle.min.js"></script>
+   <script src="js/jquery-3.0.0.min.js"></script>
+   <script src="js/plugin.js"></script>
+   <!-- sidebar -->
+   <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+   <script src="js/custom.js"></script>
+   <!-- javascript -->
+   <script src="js/owl.carousel.js"></script>
+   <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+</body>  
+
 </html>
