@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('complaint_details');
             $table->text('complaint_file');
             $table->text('city');
-           $table->string('tehsil')->nullable();
+            $table->string('tehsil')->nullable();
             $table->string('village')->nullable();
             $table->string('word')->nullable();
             $table->integer('status')->default(0)->index('status');

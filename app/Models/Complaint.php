@@ -26,6 +26,7 @@ class Complaint extends Model
         'word',
         'city',
         'status',
+        'country',
        
        
         

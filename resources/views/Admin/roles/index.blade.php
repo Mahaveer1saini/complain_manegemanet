@@ -63,7 +63,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <form action="{{ route('staff_management.roles.destroy', $role->id) }}" method="Post">
-                                                        <a class="btn btn-info btn-sm text-white" href="{{ route('staff_management.roles.permission', $role->id) }}" title="Permission"><i class="fas fa-lock"></i></a>
+                                                        <a class="btn btn-info btn-sm text-white" href="{{ route('staff_management.permission', $role->id) }}" title="Permission"><i class="fas fa-lock"></i></a>
                                                         <a class="btn btn-warning btn-sm text-white"
                                                             href="{{ route('staff_management.roles.edit', $role->id) }}"><i
                                                                 class="fas fa-edit"></i></a>
@@ -99,7 +99,7 @@
                     console.log("_token:", _token);
         
                     $.ajax({
-                        url: "{{ route('staff_management.roles.changeStatus') }}",
+                        url: "{{ route('staff_management.changeStatus') }}",
                         type: 'POST',
                         data: {
                             _token: _token,

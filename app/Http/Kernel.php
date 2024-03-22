@@ -64,10 +64,14 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    
+    
     ];
     protected $routeMiddleware = [
-        // other middleware entries...
-        'check.guest' => \App\Http\Middleware\CheckGuest::class,
+       'check.guest' => \App\Http\Middleware\CheckGuest::class,
+        'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+        
     ];
+
     
 }

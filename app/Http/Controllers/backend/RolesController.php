@@ -8,10 +8,18 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use DB;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Menu;
+use App\Models\Submenu;
+use App\Models\RolePermission;
 
 class RolesController extends Controller
 {
 
+
+   
 
     /**
      * Display a listing of the resource.
@@ -129,11 +137,14 @@ class RolesController extends Controller
         return response()->json(['success' => 'Status changed successfully.']);
     }
 
+
     public function permission($id)
-    {
-        $parmission  = Permission::where('id', $id)->first();
-        $role = Role::where('id', $id)->first();  
-        return view('Admin.roles.permission', compact('role','parmission'));
+    { 
+       
+       $role = Role::where('id', $id)->first();
+       return view('Admin.roles.permission', compact('role'));
     }
+
+    
     
 }

@@ -154,24 +154,28 @@ class ComplaintController extends Controller
             'category' => 'required',
             'subcategory' => 'required',
             'complain_type' => 'required',
-            'state' => 'required',
+            'birth_place' => ['required'],
+            'city' => ['nullable'],
+            'state' => ['nullable'],
+            'country' => ['nullable'],
             'noc' => 'required',
             'complaint_details' => 'required|max:20',
             'complaint_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file types and size as needed
-            'district' => 'required',
             'tehsil' => 'required',
             'village' => 'required',
             'word' => 'required|numeric',
+           
         ]);
     
         // Find the complaint record by ID
         $complaint = Complaint::findOrFail($id);
     
-        // Update the complaint record with the new data
+        $complaint->country = $request->input('country');
+        $complaint->state = $request->input('state');
+        $complaint->city = $request->input('city');
         $complaint->category = $request->input('category');
         $complaint->subcategory = $request->input('subcategory');
         $complaint->complaint_type = $request->input('complaint_type');
-        $complaint->state = $request->input('state');
         $complaint->noc = $request->input('noc');
         $complaint->complaint_details = $request->input('complaint_details');
     
@@ -182,8 +186,6 @@ class ComplaintController extends Controller
             $image->move(public_path('images'), $imageName);
             $complaint->complaint_file = $imageName;
         }
-    
-        $complaint->district = $request->input('district');
         $complaint->tehsil = $request->input('tehsil');
         $complaint->village = $request->input('village');
         $complaint->word = $request->input('word');

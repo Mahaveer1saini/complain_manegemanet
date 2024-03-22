@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\RolesController;
 use App\Http\Controllers\Backend\StaffController;
 use App\Http\Controllers\backend\StateController;
 use App\Http\Controllers\Backend\UsersController;
+use App\Http\Controllers\Backend\PackageController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ComplaintController;
 use App\Http\Controllers\backend\subcategoryController;
@@ -94,9 +95,9 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], function () {
     Route::resource('roles', RolesController::class);
-    Route::post('/roles/change-status', [RolesController::class, 'changeStatus'])->name('roles.changeStatus');
-    Route::get('/roles/permission/{id}', [RolesController::class, 'permission'])->name('roles.permission');
-    Route::post('/roles/permissionUpdate', [RolesController::class, 'permissionUpdate'])->name('roles.permissionUpdate');
+    Route::post('/roles/change-status', [RolesController::class, 'changeStatus'])->name('changeStatus');
+    Route::get('/roles/permission/{id}', [RolesController::class, 'permission'])->name('permission');
+    Route::post('/roles/permissionUpdate', [RolesController::class, 'permissionUpdate'])->name('permissionUpdate');
 
 
     Route::resource('staff', StaffController::class);
