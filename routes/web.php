@@ -107,7 +107,6 @@ Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], func
     Route::post('/staff-import', [StaffController::class, 'import'])->name('staff.import');
     Route::post('/staff/getState', [StaffController::class, 'getState'])->name('staff.getState');
     Route::post('/staff/getCity', [StaffController::class, 'getCity'])->name('staff.getCity');
-
 });
 
 
