@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\homeController;
 use App\Http\Controllers\front\UserController;
 use App\Http\Controllers\backend\adminController;
 use App\Http\Controllers\Backend\RolesController;
@@ -12,10 +13,11 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ComplaintController;
 use App\Http\Controllers\backend\subcategoryController;
 
+;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', [homeController::class, 'fornt_theme'])->name('login_register');
+
+    Route::get('/login_register', [UserController::class, 'showRegistrationForm'])->name('login_register');
     Route::group(['prefix' => '/user', 'as' => 'user.'], function () {
     Route::get('/login_register', [UserController::class, 'showRegistrationForm'])->name('login_register');
     Route::post('/registerStore', [UserController::class, 'register'])->name('register.store');
@@ -92,7 +94,6 @@ Route::get('/', function () {
         Route::get('/search_filter', [UsersController::class, 'search_filter'])->name('search_filter');
 
 });
-
 Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], function () {
     Route::resource('roles', RolesController::class);
     Route::post('/roles/change-status', [RolesController::class, 'changeStatus'])->name('changeStatus');
@@ -108,6 +109,8 @@ Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], func
     Route::post('/staff/getState', [StaffController::class, 'getState'])->name('staff.getState');
     Route::post('/staff/getCity', [StaffController::class, 'getCity'])->name('staff.getCity');
 });
+
+Route::post('ajaxRequest', 'HomeController@ajaxRequest')->name('ajaxRequest');
 
 
 

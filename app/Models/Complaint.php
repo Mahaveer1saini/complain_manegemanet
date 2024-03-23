@@ -1,13 +1,20 @@
 <?php
 
 namespace App\Models;
-
+use Path\To\CanBeLiked;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+
+
+
 
 class Complaint extends Model
 {
     use HasFactory;
+   
+
+    
 
     protected $table = 'tblcomplaints';
 
@@ -56,5 +63,11 @@ class Complaint extends Model
     public function complaintremark()
     {
         return $this->hasMany(complaintremark::class);
+    }
+
+  
+    public function followers()
+    {
+        return $this->morphToMany(User::class, 'followable');
     }
 }
