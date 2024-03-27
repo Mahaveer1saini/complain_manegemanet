@@ -1,16 +1,39 @@
 <!-- resources/views/complaints/create.blade.php -->
 
 @extends('layouts.app')
+
 @section('content')
+
 <head>
-   <script src="https://maps.google.com/maps/api/js?key=AIzaSyAVw_f3k-SlebCZaUjHq4AxtAJ61mB9hdQ&libraries=places" type="text/javascript"></script>
+  <script src="https://maps.google.com/maps/api/js?key=AIzaSyAVw_f3k-SlebCZaUjHq4AxtAJ61mB9hdQ&libraries=places" type="text/javascript"></script>
 </head>
+
 <div class="pcoded-main-container">
     <div class="pcoded-content">
+        
         <div class="card">
             <div class="card-header">{{ __('Register Complaint') }}</div>
+
             <div class="card-body">
-               <form method="POST" action="{{ route('user.complaint.submit') }}" enctype="multipart/form-data">
+
+                @if (Session::has('success'))
+                <div class="col-md-12">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {!! Session::get('success') !!}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
+            @if (Session::has('error'))
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ Session::get('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+                <form method="POST" action="{{ route('user.complaint.submit') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="category">{{ __('Category Name') }}</label>
@@ -40,6 +63,7 @@
                             @enderror
                         </select>
                     </div>
+
                     <!-- Complaint Type field -->
                     <div class="form-group">
                         <label for="complaintype">{{ __('Complaint Type') }}</label>
@@ -114,13 +138,19 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                   <button type="submit" class="btn btn-primary" name="submit">{{ __('Submit') }}</button>
+                  
+                    <button type="submit" class="btn btn-primary" name="submit">{{ __('Submit') }}</button>
                 </form>
             </div>
         </div>
     </div>
+
 </div>
+
+
+
 @endsection
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var autocomplete;
@@ -152,7 +182,10 @@
         }
     });
 </script>
+
+
 @section('customJs')
+
 <script>
     $(document).ready(function(){
         $('#category').on('change', function(){
@@ -168,4 +201,7 @@
         });
     });
 </script>
+
+
+
 @endsection

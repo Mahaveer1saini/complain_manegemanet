@@ -64,7 +64,8 @@ class UserController extends Controller
             
             // Check if the authenticated user has the role ID 6
             if ($user->role_id == 7) {
-                return redirect()->route('user.user_dashboard')->with(['success', 'You are successfully logged in']);
+                session()->flash('success', 'You  login have successfully ');
+                return redirect()->route('user.user_dashboard');
             } else {
                 Auth::logout();
                 return redirect()->route('user.login')->with('error', 'You do not have permission to access this dashboard.');
@@ -73,9 +74,6 @@ class UserController extends Controller
             return redirect()->route('user.login')->with('error', 'Invalid login details');
         }
     }
-    
-    
-
     public function user_dashboard()
     {  
         $user = Auth::user();
@@ -88,7 +86,7 @@ class UserController extends Controller
     {
         Auth::logout();
         session()->flash('success', 'Aap safaltapurvak logout hue hain.');
-        return redirect()->route('user.login')->with('message', 'Logout ho chuka hai.');
+        return redirect()->route('user.login');
     }
 
 
@@ -174,26 +172,24 @@ class UserController extends Controller
         if (Auth::guest()) {
             return redirect()->route('login_register');
         }
-
         $attributes   =   $request->validate([
             'old_password' => ['required', 'max:50'],
             'password' => ['required', 'max:50'],
             'confirm_password' => ['required', 'same:password', 'max:50'],
         ]);
-
         $user = Auth::user();
         if (Hash::check($attributes['old_password'], $user->password)) {
             $user->update([
                 'password' => Hash::make($attributes['password']),
                 'pstr' => $attributes['password']
             ]);
-            return redirect()->route('change_password')->with('success', 'Password updated successfully');
+            return redirect()->route('user.change_password')->with('success', 'Password updated successfully');
         } else {
-            return redirect()->route('change_password')->with('error', 'Old Password does not match!');
+            return redirect()->route('user.change_password')->with('error', 'Old Password does not match!');
         }
 
 
-    }
+    }jjj
 
 
 

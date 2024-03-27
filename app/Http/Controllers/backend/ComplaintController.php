@@ -111,9 +111,8 @@ class ComplaintController extends Controller
         $complaint->word = $validatedData['word'];
         $complaint->save();
 
-        // Other operations like fetching complaint number can be added here
-        Session::flash('message', 'This is a message!'); 
-        return redirect()->route('user.user_dashboard')->with('success', 'Profile updated successfully');
+      session()->flash('info', 'complaint Successfull');
+      return redirect()->route('user.user_dashboard');
     
     }
 
@@ -144,6 +143,7 @@ class ComplaintController extends Controller
         foreach ($categories as $category) {
             $subcategories[$category->id] = subcategories::where('category_id', $category->id)->get();
         }
+     session()->flash('info', 'complaint upadte Successfull');
       return view('backend.user.complain-update', compact('Complaint','categories','states','user','subcategories'));
      
     }
