@@ -114,7 +114,7 @@
               </div>
           </div>
       @endforeach
-  </div>kkkkfhdnjdtfn
+  </div>
   @endif
 
 
