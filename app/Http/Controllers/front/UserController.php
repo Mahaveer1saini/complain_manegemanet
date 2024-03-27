@@ -64,7 +64,7 @@ class UserController extends Controller
             
             // Check if the authenticated user has the role ID 6
             if ($user->role_id == 7) {
-                return redirect()->route('user.user_dashboard');
+                return redirect()->route('user.user_dashboard')->with(['success', 'You are successfully logged in']);
             } else {
                 Auth::logout();
                 return redirect()->route('user.login')->with('error', 'You do not have permission to access this dashboard.');
@@ -87,7 +87,8 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('user.login');
+        session()->flash('success', 'Aap safaltapurvak logout hue hain.');
+        return redirect()->route('user.login')->with('message', 'Logout ho chuka hai.');
     }
 
 

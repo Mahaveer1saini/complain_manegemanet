@@ -1,27 +1,30 @@
 
-<html>
 <head>
     @include('layouts.head')
+  
+
 </head>
 <body>
-    @include('layouts.header')
-    <!-- Alert Toastr Message  -->
-        @include('layouts.toastr') 
+    <header>
+        @include('layouts.header')
+    </header>
+
+    <aside>
         @include('layouts.sidebar')
-    <div id="app">
+    </aside>
+
+    <main>
        
-        <main>
+       
+         @yield('content')
+         @include('layouts.alert_message')
+       
+       
+    </main>
 
-            @yield('content')
-            
-            
-            
-       </main>
-
-        <!----  Footr     -------->
-        <footer class="row">
-            @include('layouts.footer')
-        </footer>
-    </div>
+    <footer>
+        @include('layouts.footer')
+    </footer>
 </body>
 </html>
+

@@ -4,6 +4,8 @@ namespace App\Models;
 use Path\To\CanBeLiked;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Conner\Likeable\Likeable;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -11,8 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Complaint extends Model
 {
-    use HasFactory;
-   
+    use HasFactory,Likeable;
+    
 
     
 
@@ -65,9 +67,18 @@ class Complaint extends Model
         return $this->hasMany(complaintremark::class);
     }
 
-  
-    public function followers()
+    public function likes()
     {
-        return $this->morphToMany(User::class, 'followable');
+        return $this->hasMany(Like::class);
     }
+
+    // Method to like the post
+    public function like()
+    {
+        // Assuming you have a Like model with user_id and complaint_id columns
+        $this->likes()->create(['user_id' => Auth::id()]);
+    }
+
+  
+    
 }

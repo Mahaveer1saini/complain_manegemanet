@@ -1,14 +1,11 @@
 
+
 @extends('layouts.app')
-
 @section('content')
-
-
-
-<!-- Include sidebar and header -->
+    
 <div class="pcoded-main-container">
     <div class="pcoded-content">
-<!-- [ Main Content ] start -->
+ <!-- [ Main Content ] start -->
 <div class="row">
     <div class="col-md-12 col-xl-6">
         <!-- widget-success-card start -->
@@ -74,16 +71,13 @@
         <!-- widget-success-card end -->
     </div>
 </div>
-
-<!-- Main Content -->
-
-
+<script src="assets\js\vendor-all.js"></script>
+<script src="assets/js/plugins/bootstrap.min.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<!-- Apex Chart -->
+<script src="assets/js/plugins/apexcharts.min.js"></script>
+<!-- custom-chart js -->
+<script src="assets/js/pages/dashboard-main.js"></script>
 @endsection
 
-@section('customJs')
 
-<script>
-    console.log("Hello");
-</script>
-    
-@endsection

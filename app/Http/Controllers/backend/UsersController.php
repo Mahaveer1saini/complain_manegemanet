@@ -191,7 +191,7 @@ class UsersController extends Controller
             $loggedUser = Auth::user();
             
             if ($loggedUser->role_id == 2) {
-                return redirect()->route('admin.dashboard')->with(['success' => 'You are logged in.']);
+             return redirect()->route('admin.dashboard')->with(['success' => 'You are logged in.']);
             } elseif ($loggedUser->role_id == 3) {
                 return redirect()->route('mp.dashboard')->with(['success' => 'You are logged in.']);
             } elseif ($loggedUser->role_id == 4) {
@@ -393,7 +393,7 @@ class UsersController extends Controller
         // Update complaint status
         $complaint->update(['status' => $status]);
     
-        return redirect()->back()->with('success', 'Complaint details updated successfully');
+        return redirect()->route('admin.all-complaint')->with('success', 'Complaint details updated successfully');
     } 
     
     

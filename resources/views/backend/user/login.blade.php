@@ -6,6 +6,7 @@
     <title>CMS | User login</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
     <div class="auth-wrapper">
         <div class="auth-content text-center">

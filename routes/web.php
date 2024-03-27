@@ -15,7 +15,7 @@ use App\Http\Controllers\backend\subcategoryController;
 
 ;
 
-    Route::get('/', [homeController::class, 'fornt_theme'])->name('login_register');
+    Route::get('/', [homeController::class, 'fornt_theme'])->name('home');
 
     Route::get('/login_register', [UserController::class, 'showRegistrationForm'])->name('login_register');
     Route::group(['prefix' => '/user', 'as' => 'user.'], function () {
@@ -110,7 +110,10 @@ Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], func
     Route::post('/staff/getCity', [StaffController::class, 'getCity'])->name('staff.getCity');
 });
 
-Route::post('ajaxRequest', 'HomeController@ajaxRequest')->name('ajaxRequest');
+// Like Or Dislike
+Route::post('/like-post/{id}',[homeController::class,'likePost'])->name('like.post');
+Route::post('/unlike-post/{id}',[homeController::class,'unlikePost'])->name('unlike.post');
+
 
 
 

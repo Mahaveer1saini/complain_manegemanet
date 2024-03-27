@@ -112,6 +112,7 @@ class ComplaintController extends Controller
         $complaint->save();
 
         // Other operations like fetching complaint number can be added here
+        Session::flash('message', 'This is a message!'); 
         return redirect()->route('user.user_dashboard')->with('success', 'Profile updated successfully');
     
     }
@@ -119,7 +120,6 @@ class ComplaintController extends Controller
 
     public function complaint_history()
     {
-     
         $user = Auth::user();
         $complaints = Complaint::where('user_id', $user->id)->get();
         return view('backend.user.complain-history', compact('complaints', 'user'));
@@ -193,7 +193,7 @@ class ComplaintController extends Controller
         // Save the updated complaint record
         $complaint->save();
     
-        // Redirect the user back or to another page after successful edit
+        Session::flash('message', 'This is a message!'); 
         return redirect()->route('user.complaint-history');
     }
 
