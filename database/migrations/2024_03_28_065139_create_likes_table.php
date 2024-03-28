@@ -12,14 +12,11 @@ class CreateLikesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('complaint_id');
+            $table->string('rating_action');
             $table->timestamps();
-            
-            // Define foreign key constraints
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('complaint_id')->references('id')->on('complaints')->onDelete('cascade');
-            
-            // Ensure each user can like a complaint only once
-            $table->unique(['user_id', 'complaint_id']);
         });
     }
 

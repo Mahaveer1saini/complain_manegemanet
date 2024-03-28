@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use Path\To\CanBeLiked;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Conner\Likeable\Likeable;
@@ -13,11 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Complaint extends Model
 {
-    use HasFactory,Likeable;
-    
-
-    
-
+    use HasFactory;
     protected $table = 'tblcomplaints';
 
     protected $fillable = [
@@ -25,17 +20,17 @@ class Complaint extends Model
         'category',
         'subcategory',
         'complaint_type',
-        'state',
         'noc',
         'complaint_details',
         'complaint_file',
-        'city',
         'tehsil',
         'village',
         'word',
+        'country',
+        'state',
         'city',
         'status',
-        'country',
+       
        
        
         
@@ -67,17 +62,15 @@ class Complaint extends Model
         return $this->hasMany(complaintremark::class);
     }
 
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
-    }
-
-    // Method to like the post
     public function like()
     {
-        // Assuming you have a Like model with user_id and complaint_id columns
-        $this->likes()->create(['user_id' => Auth::id()]);
+       $this->likes()->create(['user_id' => Auth::id()]);
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'complaint_id');
+    }
+
 
   
     

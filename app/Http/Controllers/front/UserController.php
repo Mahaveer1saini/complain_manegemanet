@@ -85,7 +85,7 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        session()->flash('success', 'Aap safaltapurvak logout hue hain.');
+        session()->flash('success', 'Aap logout hue hain.');
         return redirect()->route('user.login');
     }
 
@@ -189,7 +189,7 @@ class UserController extends Controller
         }
 
 
-    }jjj
+    }
 
 
 

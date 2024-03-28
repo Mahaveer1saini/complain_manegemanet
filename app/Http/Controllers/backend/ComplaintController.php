@@ -158,7 +158,7 @@ class ComplaintController extends Controller
             'city' => ['nullable'],
             'state' => ['nullable'],
             'country' => ['nullable'],
-            'noc' => 'required',
+             'noc' => 'required',
             'complaint_details' => 'required|max:20',
             'complaint_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file types and size as needed
             'tehsil' => 'required',
@@ -169,10 +169,10 @@ class ComplaintController extends Controller
     
         // Find the complaint record by ID
         $complaint = Complaint::findOrFail($id);
-    
-        $complaint->country = $request->input('country');
-        $complaint->state = $request->input('state');
-        $complaint->city = $request->input('city');
+        $complaint->country = $request->input['country'];
+        $complaint->state = $request->input['state'];
+        $complaint->city= $request->input['city'];
+        $complaint->country = $request->input['country'];
         $complaint->category = $request->input('category');
         $complaint->subcategory = $request->input('subcategory');
         $complaint->complaint_type = $request->input('complaint_type');
@@ -199,11 +199,18 @@ class ComplaintController extends Controller
 
     public function complaint_destroy($id)
     {
-      $Complaint = Complaint::find($id);
-      $Complaint->delete();
-      return redirect()->route('user.complaint-history')
-        ->with('success', 'Complaint deleted successfully');
+        $complaint = Complaint::find($id);
+        
+        if (!$complaint) {
+            return redirect()->route('user.complaint-history')->with('error', 'Complaint not found');
+        }
+         $complaint->likes()->delete();
+        $complaint->delete();
+        Session::flash('message', 'Complaint deleted successfully!');
+        return redirect()->route('user.complaint-history')->with('success', 'Complaint deleted successfully');
     }
+    
+    
     
      
     }

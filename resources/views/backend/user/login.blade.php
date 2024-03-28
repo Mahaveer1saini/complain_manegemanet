@@ -6,23 +6,6 @@
     <title>CMS | User login</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-      @if (Session::has('success'))
-                <div class="col-md-12">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {!! Session::get('success') !!}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
-
-            @if (Session::has('error'))
-                <div class="col-md-12">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ Session::get('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
 <body>
     <div class="auth-wrapper">
         <div class="auth-content text-center">
@@ -31,6 +14,23 @@
             <div class="card borderless">
                 <div class="row align-items-center">
                     <div class="col-md-12">
+                        @if (Session::has('success'))
+                        <div class="col-md-12">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {!! Session::get('success') !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
+        
+                    @if (Session::has('error'))
+                        <div class="col-md-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ Session::get('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    @endif
                         <form method="POST" action="{{ route('user.login.store') }}">
                             @csrf
                             <div class="card-body">

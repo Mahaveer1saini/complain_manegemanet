@@ -148,6 +148,34 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card flat-card widget-purple-card">
+                    <div class="row">
+                        <div class="col-3 card-body">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="col-9">
+                            <h4>{{$like}}</h4>
+                            <a href=""><h6>like</h6></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xl-4">
+                <div class="card flat-card widget-purple-card">
+                    <div class="row">
+                        <div class="col-3 card-body">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="col-9">
+                            <h4>{{$dislike}}</h4>
+                            <a href=""><h6>dislike</h6></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

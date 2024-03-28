@@ -111,11 +111,5 @@ Route::group(['prefix' => 'staff_management', 'as' => 'staff_management.'], func
 });
 
 // Like Or Dislike
-Route::post('/like-post/{id}',[homeController::class,'likePost'])->name('like.post');
-Route::post('/unlike-post/{id}',[homeController::class,'unlikePost'])->name('unlike.post');
-
-
-
-
-
-
+Route::post('like/{complaint_id}', [homeController::class, 'like'])->name('like');
+Route::post('dislike/{complaint_id}', [homeController::class, 'dislike'])->name('dislike');

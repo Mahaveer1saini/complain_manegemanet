@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\State;
+use App\Models\like;
 use App\Models\Complaint;
 use App\Models\categories;
 use App\Models\subcategories;
@@ -100,6 +101,8 @@ class UsersController extends Controller
             $all_user = User::where('role_id', 7)->count();
             $all_state = State::count();
             $all_Complaint = Complaint::count();
+            $like = like::count();
+            $dislike = like::count();
             $closedComplaintCount = Complaint::where('status', 'closed')->count();
             $paddingComplaintCount = Complaint::where('status', 'padding')->count();
             $processComplaintCount = Complaint::where('status', 'in process')->count();
@@ -108,7 +111,7 @@ class UsersController extends Controller
             $data = (object) [];
             if ($loggedUser->package_valid_date <= Config::get('current_date')) {
                 if ($loggedUser->role_id == 2) {
-                    return view('Admin.dasboard', compact('data', 'all_user', 'all_state','all_Complaint','all_categories','all_subcategories','closedComplaintCount','paddingComplaintCount','processComplaintCount'))->with('error', 'Your plan has expired. Please recharge immediately');
+                    return view('Admin.dasboard', compact('data', 'all_user', 'all_state','all_Complaint','all_categories','all_subcategories','closedComplaintCount','paddingComplaintCount','processComplaintCount','like','dislike'))->with('error', 'Your plan has expired. Please recharge immediately');
                 } else {
                     return view('backend.users.dashboard', compact('data'))->with('error', 'Your admin plan has expired. Contact an Authorized Person');
                 }

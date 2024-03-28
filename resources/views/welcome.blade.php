@@ -59,7 +59,7 @@
       </div>
      
    </div>
-   @if($data->count())
+  
    <div class="row">
       @foreach ($data as $product)
           <div class="col-12 col-md-6 col-lg-3 mb-4">
@@ -100,22 +100,26 @@
                   </div>
 
                   <div class="panel-footer">
-                    <span class="pull-right">
-                        <form action="{{ route('like.post', $product->id) }}" method="post">
+                    <span>
+                        <form id="likeForm" action="{{ route('like', $product->id) }}" method="POST">
                             @csrf
-                            <button class="like-button {{ $product->liked() ? 'active' : '' }}">Like</button>
+                            <button type="submit" class="like-btn active {{ ($product->id) ? 'active' : '' }}">
+                                <i class="fa fa-thumbs-up"></i>like
+                            </button>
                         </form>
-                        <form action="{{ route('unlike.post', $product->id) }}" method="post">
+						<form id="dislikeForm" action="{{ route('dislike', $product->id) }}" method="POST">
                             @csrf
-                            <button class="dislike-button {{ $product->liked() ? '' : 'active' }}">Dislike</button>
+                            <button type="submit" name="action" value="dislike" class="dislike-btn">
+                                <i class="fa fa-thumbs-down"></i> Dislike
+                            </button>
                         </form>
                     </span>
                  </div>
               </div>
           </div>
       @endforeach
-  </div>kkkk
-  @endif
+  </div>
+
 
 
 
